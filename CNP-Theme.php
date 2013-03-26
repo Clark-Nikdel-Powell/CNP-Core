@@ -1,5 +1,8 @@
 <?
 
+/**
+ * Describes action/filter hooks for theme related functions
+ */
 class CNP_Theme {
 
 	/**
@@ -31,10 +34,21 @@ class CNP_Theme {
 		return $title;
 	}
 
+	public static function description() {
+		echo esc_attr(is_singular()
+			? the_excerpt()
+			: get_bloginfo('description')
+		);
+	}
+
+	/**
+	 * Adds all filter & action hooks to WP to handle when necessary
+	 * @access public
+	 */
 	public static function initialize() {
-
-		add_filter('wp_title', array(__CLASS__, 'wp_title'), 10, 2);
-
+		$cls = __CLASS__;
+		add_filter('wp_title', array($cls, 'wp_title'), 10, 2);
+		add_action('cnp_description', array($cls, 'description'));
 	}
 
 }
