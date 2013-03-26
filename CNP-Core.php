@@ -46,7 +46,7 @@ require_once CNP_PATH.'functions/theme.php';
 final class CNP_Core {
 
 	public static function activation() {
-		/* PLUGIN ACTIVATION LOGIC HERE */
+		add_action('shutdown', array('CNP_Theme', 'override_image_sizes'));
 	}
 
 	public static function deactivation() {
