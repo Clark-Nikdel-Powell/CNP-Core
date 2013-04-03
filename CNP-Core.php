@@ -45,6 +45,26 @@ require_once CNP_PATH.'functions/theme.php';
 
 final class CNP_Core {
 
+	/**
+	 * Enforce that this plugin is loaded before all other plugins. This ensures 
+	 * that the classes added here are immediately available to other plugins.
+	 * 
+	 * @access public
+	 */
+	public static function load_first() {
+		$plugin_url = plugin_basename(__FILE__);
+		$active_plugins = get_option('active_plugins', array());
+		$key = array_search($plugin_url, $active_plugins);
+		if (!$key) return;
+		array_splice($active_plugins, $key, 1);
+		array_unshift($active_plugins, $plugin_url);
+		update_option('active_plugins', $active_plugins);
+	}
+
+//-----------------------------------------------------------------------------
+// PLUGIN RELATED HOOKS
+//-----------------------------------------------------------------------------
+
 	public static function activation() {
 		add_action('shutdown', array('CNP_Theme', 'override_image_sizes'));
 	}
@@ -59,6 +79,7 @@ final class CNP_Core {
 
 	public static function initialize() {
 		CNP_Theme::initialize();
+		add_action('activated_plugin', array(__CLASS__, 'load_first'));
 	}
 
 }
