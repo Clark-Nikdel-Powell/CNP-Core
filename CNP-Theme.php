@@ -1,9 +1,9 @@
-<?
+<?php
 
 /**
  * Describes action/filter hooks for theme related functions
  */
-class CNP_Theme {
+final class CNP_Theme {
 
 //-----------------------------------------------------------------------------
 // THEME SUPPORT
