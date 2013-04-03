@@ -3,7 +3,7 @@
 	Plugin Name: CNP Core
 	Plugin URI: http://clarknikdelpowell.com
 	Version: 0.1.0
-	Description: Provides base-level customization & security for all CNP sites. DO NOT DISABLE OR DELETE!!!
+	Description: Provides base-level customization & security for all CNP sites. DO NOT DEACTIVATE OR DELETE!!!
 	Author: Chris Roche
 	Author URI: http://clarknikdelpowell.com
 
@@ -35,8 +35,11 @@ define('CNP_URL', plugin_dir_url(__FILE__));
 // PLUGIN DEPENDENCIES
 ////////////////////////////////////////////////////////////////////////////////
 
+//CLASSES
 require_once CNP_PATH.'CNP-Theme.php';
+require_once CNP_PATH.'CNP-Post-Type.php';
 
+//FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
 
 ////////////////////////////////////////////////////////////////////////////////
