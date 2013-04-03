@@ -24,6 +24,22 @@ class CNP_Theme {
 	);
 
 	/**
+	 * Adds theme support to the current site.
+	 * @access public
+	 */
+	public static function theme_support() {
+		$features = apply_filters('cnp_theme_features', static::$theme_features);
+		foreach($features as $feature => $args) {
+			if (is_array($args)) add_theme_support($feature, $args);
+			elseif($args) add_theme_support($feature);
+		}
+	}
+
+//-----------------------------------------------------------------------------
+// IMAGE SIZING
+//-----------------------------------------------------------------------------
+
+	/**
 	 * Size overrides for the reserved image intermediate sizes
 	 * @var array
 	 */
@@ -68,18 +84,6 @@ class CNP_Theme {
 	);
 
 	/**
-	 * Adds theme support to the current site.
-	 * @access public
-	 */
-	public static function theme_support() {
-		$features = apply_filters('cnp_theme_features', static::$theme_features);
-		foreach($features as $feature => $args) {
-			if (is_array($args)) add_theme_support($feature, $args);
-			elseif($args) add_theme_support($feature);
-		}
-	}
-
-	/**
 	 * Overrides the pre-existing image sizes for WordPress.
 	 * THIS FUNCTION IS RUN IN THE ACTIVATE HOOK OF CNP-CORE!
 	 * @access public
@@ -106,7 +110,39 @@ class CNP_Theme {
 		}
 	}
 
+//-----------------------------------------------------------------------------
+// SIDEBAR / WIDGET SUPPORT
+//-----------------------------------------------------------------------------
 
+	/**
+	 * Default values for a sidebar args array
+	 * @var array
+	 */
+	private static $sidebar_default = array(
+		'before_widget' => '<div id="%1$s" class="widget %2$s" role="sidebar">',
+		'after_widget'  => '</div><!-- widget -->',
+		'before_title'  => '<h2 class="title">',
+		'after_title'   => '</h2>'
+	);
+
+	/**
+	 * Sidebars to be available on a fresh install
+	 * @var array
+	 */
+	private static $sidebars = array();
+
+	/**
+	 * Adds sidebars to the wordpress install, allowing widgets to be added by the
+	 * client
+	 * @access public
+	 */
+	public static function add_sidebars() {
+		$sidebars = apply_filters('cnp_sidebars', static::$sidebars);
+		foreach ($sidebars as $args) {
+			$args = wp_parse_args($args, static::$sidebar_default);
+			register_sidebar($args);
+		}
+	}
 
 //-----------------------------------------------------------------------------
 // THEME-RELATED HOOK OVERRIDES
@@ -167,8 +203,10 @@ class CNP_Theme {
 		add_action('after_setup_theme', array($cls, 'theme_support'));
 		add_action('after_setup_theme', array($cls, 'add_image_sizes'));
 
-		add_filter('wp_title', array($cls, 'wp_title'), 10, 2);
+		add_filter('wp_title',        array($cls, 'wp_title'), 10, 2);
 		add_action('cnp_description', array($cls, 'description'));
+
+		add_action('widgets_init', array($cls, 'add_sidebars'));
 	}
 
 }
