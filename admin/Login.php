@@ -28,7 +28,7 @@ class CNP_Admin_Login {
 	 */
 	public static function update_login_logo() {
 		$default_image = 'resources/cnp-logo.png';
-		$default_size  = array(600, 300);
+		$default_size  = array(548, 126);
 		$desired_width = 274;
 		
 		$image = apply_filters('cnp_login_logo', CNP_URL.$default_image);
