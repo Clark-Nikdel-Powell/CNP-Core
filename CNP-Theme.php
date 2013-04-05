@@ -182,10 +182,10 @@ final class CNP_Theme {
 	 * a singular item, or the site/blog description otherwise.
 	 * @access public
 	 */
-	public static function description() {
-		echo esc_attr(is_singular()
+	public static function description($description) {
+		return esc_attr(is_singular()
 			? the_excerpt()
-			: get_bloginfo('description')
+			: get_bloginfo('description', 'display')
 		);
 	}
 
@@ -204,7 +204,7 @@ final class CNP_Theme {
 		add_action('after_setup_theme', array($cls, 'add_image_sizes'));
 
 		add_filter('wp_title',        array($cls, 'wp_title'), 10, 2);
-		add_action('cnp_description', array($cls, 'description'));
+		add_filter('cnp_description', array($cls, 'description'));
 
 		add_action('widgets_init', array($cls, 'add_sidebars'));
 	}

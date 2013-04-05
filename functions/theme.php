@@ -13,6 +13,20 @@ function cnp_theme_url($path) {
 }
 
 //-----------------------------------------------------------------------------
+// DESCRIPTION/EXCERPT FUNCTIONS
+//-----------------------------------------------------------------------------
+
+/**
+ * Returns an appropriate description for the current page. Can be modified
+ * using the cnp_description filter.
+ * 
+ * @access public
+ */
+function cnp_description() {
+	return apply_filters('cnp_description', '');
+}
+
+//-----------------------------------------------------------------------------
 // SCHEMA.ORG HELPER FUNCTIONS
 //-----------------------------------------------------------------------------
 
