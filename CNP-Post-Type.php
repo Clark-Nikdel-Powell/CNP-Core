@@ -72,7 +72,7 @@ abstract class CNP_Post_Type {
 	 * Registers the post type with WordPress. This method
 	 * should not be called directly. 
 	 */
-	public final static function register() {
+	public static function register() {
 		$args = static::default_args();
 		
 		if (is_array(static::$labels))       $args['labels']       = static::$labels;
@@ -87,7 +87,7 @@ abstract class CNP_Post_Type {
 	}
 
 //-----------------------------------------------------------------------------
-// ADMIN ARCHIVE VIEW CLEANUP
+// ADMIN LIST SCREEN CLEANUP
 //-----------------------------------------------------------------------------
 
 	/**
@@ -151,7 +151,7 @@ abstract class CNP_Post_Type {
 	}
 
 //-----------------------------------------------------------------------------
-// ADMIN EDIT SCREEN VIEW CLEANUP
+// ADMIN EDIT SCREEN CLEANUP
 //-----------------------------------------------------------------------------
 
 	/**
