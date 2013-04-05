@@ -35,8 +35,13 @@ define('CNP_URL', plugin_dir_url(__FILE__));
 // PLUGIN DEPENDENCIES
 ////////////////////////////////////////////////////////////////////////////////
 
+//ADMIN
+require_once CNP_PATH.'admin/Login.php';
+
 //CLASSES
 require_once CNP_PATH.'CNP-Theme.php';
+
+//ABSTRACTS
 require_once CNP_PATH.'CNP-Post-Type.php';
 
 //FUNCTIONS
@@ -81,7 +86,12 @@ final class CNP_Core {
 	}
 
 	public static function initialize() {
+		//ADMIN
+		CNP_Admin_Login::initialize();
+
+		//CLASSES
 		CNP_Theme::initialize();
+
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
 	}
 
