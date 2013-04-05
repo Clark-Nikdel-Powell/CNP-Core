@@ -27,7 +27,7 @@ class CNP_Admin_Login {
 	 * @access public
 	 */
 	public static function update_login_logo() {
-		$default_image = 'resources/cnp-logo.png';
+		$default_image = 'resources/login-logo.png';
 		$default_size  = array(548, 126);
 		$desired_width = 274;
 		
