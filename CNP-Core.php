@@ -37,6 +37,7 @@ define('CNP_URL', plugin_dir_url(__FILE__));
 
 //ADMIN
 require_once CNP_PATH.'admin/Login.php';
+require_once CNP_PATH.'admin/Bar.php';
 
 //CLASSES
 require_once CNP_PATH.'CNP-Theme.php';
@@ -88,6 +89,7 @@ final class CNP_Core {
 	public static function initialize() {
 		//ADMIN
 		CNP_Admin_Login::initialize();
+		CNP_Admin_Bar::initialize();
 
 		//CLASSES
 		CNP_Theme::initialize();
