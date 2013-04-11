@@ -28,8 +28,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 //FILESYSTEM CONSTANTS
-define('CNP_PATH', plugin_dir_path(__FILE__));
-define('CNP_URL', plugin_dir_url(__FILE__));
+define('CNP_PATH',         plugin_dir_path(__FILE__));
+define('CNP_URL',          plugin_dir_url(__FILE__));
+define('CNP_CORE_VERSION', '0.1.0');
 
 ////////////////////////////////////////////////////////////////////////////////
 // PLUGIN DEPENDENCIES
