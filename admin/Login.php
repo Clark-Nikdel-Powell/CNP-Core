@@ -8,7 +8,7 @@ class CNP_Admin_Login {
 	 * @return string The site url set in Settings
 	 */
 	public static function update_login_url() { 
-		return home_url(); 
+		return 'http://clarknikdelpowell.com/'; 
 	}
 
 	/**
@@ -27,7 +27,7 @@ class CNP_Admin_Login {
 	 * @access public
 	 */
 	public static function update_login_logo() {
-		$default_image = 'resources/login-logo.png';
+		$default_image = 'resources/images/login-logo.png';
 		$default_size  = array(548, 126);
 		$desired_width = 274;
 		
