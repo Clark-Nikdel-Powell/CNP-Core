@@ -47,8 +47,10 @@ require_once CNP_PATH.'theme/Support.php';
 require_once CNP_PATH.'theme/Images.php';
 require_once CNP_PATH.'theme/Widgets.php';
 
-//ABSTRACTS
-require_once CNP_PATH.'CNP-Post-Type.php';
+//POST TYPES
+require_once CNP_PATH.'post-types/CNP-Post-Type.php';
+require_once CNP_PATH.'post-types/CNP-Post.php';
+require_once CNP_PATH.'post-types/CNP-Page.php';
 
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
@@ -102,6 +104,9 @@ final class CNP_Core {
 		CNP_Theme_Images::initialize();
 		CNP_Theme_Widgets::initialize();
 
+		//POST TYPES
+		CNP_Post_Post_Type::initialize();
+		CNP_Page_Post_Type::initialize();
 
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
 	}

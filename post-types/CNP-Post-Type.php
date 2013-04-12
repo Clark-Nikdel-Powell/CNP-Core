@@ -38,6 +38,12 @@ abstract class CNP_Post_Type {
 	protected static $supports = null;
 
 	/**
+	 * An array of features to remove from the post type
+	 * @var array
+	 */
+	protected static $remove_supports = null;
+
+	/**
 	 * An array of capabilities for this post type
 	 * @var array
 	 */
@@ -86,6 +92,16 @@ abstract class CNP_Post_Type {
 		register_post_type(static::$name, $args);
 	}
 
+	/**
+	 * Removes features from post type 
+	 * @access public
+	 */
+	public static function remove_supports() {
+		if (!is_array(static::$remove_supports)) return;
+		foreach(static::$remove_supports as $feature)
+			remove_post_type_support(static::$name, $feature);
+	}
+
 //-----------------------------------------------------------------------------
 // ADMIN LIST SCREEN CLEANUP
 //-----------------------------------------------------------------------------
@@ -128,7 +144,7 @@ abstract class CNP_Post_Type {
 
 		//move columns to end
 		if (is_array(static::$columns_to_end)) 
-			foreach ($static::$columns_to_end as $col) {
+			foreach (static::$columns_to_end as $col) {
 				if (!array_key_exists($col, $cols)) continue;
 				$val = $cols[$col];
 				unset($cols[$col]);
@@ -164,7 +180,9 @@ abstract class CNP_Post_Type {
 	 * IDs of the meta boxes to remove from the post edit screen
 	 * @var array
 	 */
-	protected static $meta_boxes_to_remove = array();
+	protected static $meta_boxes_to_remove = array(
+		'postcustom'
+	);
 
 	/**
 	 * Whether or not to move the revisions meta box to the sidebar
@@ -205,7 +223,7 @@ abstract class CNP_Post_Type {
 	public final static function remove_meta_boxes() {
 		if (!static::is_this_cpt()) return;
 		if (is_array(static::$meta_boxes_to_remove))
-			foreach($meta_boxes_to_remove as $box) {
+			foreach(static::$meta_boxes_to_remove as $box) {
 				remove_meta_box($box, static::$name, 'normal');
 				remove_meta_box($box, static::$name, 'side');
 			}
@@ -297,11 +315,17 @@ abstract class CNP_Post_Type {
 // INITIALIZATION
 //-----------------------------------------------------------------------------
 
-	public static function initialize() {
+	/**
+	 * Preps the post type. SHOULD NOT BE CALLED DIRECTLY
+	 * This method is registered on the cnp_ready action.
+	 * @access public
+	 */
+	public static function ready() {
 		$cls = get_called_class();
 		$name = static::$name;
 
 		add_action('init', array($cls, 'register'));
+		add_action('init', array($cls, 'remove_supports'));
 
 		add_filter("manage_edit-{$name}_columns", array($cls, 'manage_columns'));
 		add_action("manage_{$name}_posts_custom_column", array($cls, 'column_values'), 10, 2);
@@ -309,7 +333,11 @@ abstract class CNP_Post_Type {
 		add_filter('enter_title_here', array($cls, 'enter_title_here'));
 
 		add_action('do_meta_boxes', array($cls, 'move_meta_boxes'));
-		add_action('do_meta_boxes', array($cls, 'remove_meta_boxes'));
+		add_action('do_meta_boxes', array($cls, 'remove_meta_boxes'));		
+	}
+
+	public static function initialize() {
+		add_action('cnp_ready', array(get_called_class(), 'ready'));
 	}
 
 }
