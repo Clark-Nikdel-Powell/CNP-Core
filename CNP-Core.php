@@ -41,8 +41,11 @@ require_once CNP_PATH.'admin/General.php';
 require_once CNP_PATH.'admin/Login.php';
 require_once CNP_PATH.'admin/Bar.php';
 
-//CLASSES
-require_once CNP_PATH.'CNP-Theme.php';
+//THEME
+require_once CNP_PATH.'theme/General.php';
+require_once CNP_PATH.'theme/Support.php';
+require_once CNP_PATH.'theme/Images.php';
+require_once CNP_PATH.'theme/Widgets.php';
 
 //ABSTRACTS
 require_once CNP_PATH.'CNP-Post-Type.php';
@@ -77,7 +80,7 @@ final class CNP_Core {
 //-----------------------------------------------------------------------------
 
 	public static function activation() {
-		add_action('shutdown', array('CNP_Theme', 'override_image_sizes'));
+		add_action('shutdown', array('CNP_Theme_Images', 'override_image_sizes'));
 	}
 
 	public static function deactivation() {
@@ -93,9 +96,12 @@ final class CNP_Core {
 		CNP_Admin_General::initialize();
 		CNP_Admin_Login::initialize();
 		CNP_Admin_Bar::initialize();
+		//THEME
+		CNP_Theme_General::initialize();
+		CNP_Theme_Support::initialize();
+		CNP_Theme_Images::initialize();
+		CNP_Theme_Widgets::initialize();
 
-		//CLASSES
-		CNP_Theme::initialize();
 
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
 	}
