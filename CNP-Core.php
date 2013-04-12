@@ -37,6 +37,7 @@ define('CNP_CORE_VERSION', '0.1.0');
 ////////////////////////////////////////////////////////////////////////////////
 
 //ADMIN
+require_once CNP_PATH.'admin/General.php';
 require_once CNP_PATH.'admin/Login.php';
 require_once CNP_PATH.'admin/Bar.php';
 
@@ -89,6 +90,7 @@ final class CNP_Core {
 
 	public static function initialize() {
 		//ADMIN
+		CNP_Admin_General::initialize();
 		CNP_Admin_Login::initialize();
 		CNP_Admin_Bar::initialize();
 
