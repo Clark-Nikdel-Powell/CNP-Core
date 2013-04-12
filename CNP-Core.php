@@ -40,6 +40,7 @@ define('CNP_CORE_VERSION', '0.1.0');
 require_once CNP_PATH.'admin/General.php';
 require_once CNP_PATH.'admin/Login.php';
 require_once CNP_PATH.'admin/Bar.php';
+require_once CNP_PATH.'admin/Menu.php';
 
 //THEME
 require_once CNP_PATH.'theme/General.php';
@@ -93,11 +94,17 @@ final class CNP_Core {
 		/* PLUGIN DELETION LOGIC HERE */
 	}
 
+	public static function ready() {
+		do_action('cnp_ready');
+	}
+
 	public static function initialize() {
 		//ADMIN
 		CNP_Admin_General::initialize();
 		CNP_Admin_Login::initialize();
 		CNP_Admin_Bar::initialize();
+		CNP_Admin_Menu::initialize();
+
 		//THEME
 		CNP_Theme_General::initialize();
 		CNP_Theme_Support::initialize();
@@ -108,7 +115,9 @@ final class CNP_Core {
 		CNP_Post_Post_Type::initialize();
 		CNP_Page_Post_Type::initialize();
 
+		//PLUGIN ACTIONS
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
+		add_action('after_setup_theme', array(__CLASS__, 'ready'), 999);
 	}
 
 }
