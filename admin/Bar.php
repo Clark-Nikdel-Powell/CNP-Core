@@ -39,7 +39,8 @@ class CNP_Admin_Bar {
 		'edit',
 		'about',
 		'wp-logo-default',
-		'wp-logo-external'
+		'wp-logo-external',
+		'view'
 	);
 
 	/**

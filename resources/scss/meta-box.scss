@@ -1,0 +1,38 @@
+.cnp-fields {
+
+	&.form-table th { width: inherit; }
+
+	.cnp-field-type-text input,
+	.cnp-field-type-textarea textarea,
+	.cnp-field-type-select select,
+	.cnp-field-type-taxonomy select,
+	.cnp-field-type-post select,
+	.cnp-field-type-date input
+	{ 
+		width: 100%; 
+	}
+
+	.cnp-slider-label
+	{
+		display: block;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.cnp-field-type-media img {
+		width: 150px;
+		height: 150px;
+		border: 1px solid #ccc;
+		float: left;
+		margin-right: 1em;
+		margin-bottom: 1em;
+	}
+
+	.cnp-field-type-textarea textarea 
+	{
+		height: 10em; 
+		resize: vertical; 
+	}
+
+
+}

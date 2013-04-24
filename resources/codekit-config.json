@@ -2,17 +2,72 @@
   "CodeKitInfo" : "This is a CodeKit project configuration file. It is designed to sync project settings across multiple machines. Modifying the contents of this file can be a poor life decision if you don't know what you're doing. This file is not useful unless accompanied by the project that created it in CodeKit. For more information, see: http:\/\/incident57.com\/codekit",
   "creatorBuild" : "8283",
   "files" : {
-    "\/scss\/list-screen.scss" : {
+    "\/config.rb" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/config.rb",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 32768
+    },
+    "\/images\/bar-logo.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/images\/bar-logo.png",
+      "processed" : 1,
+      "outputAbbreviatedPath" : "\/images\/bar-logo.png",
+      "initialSize" : 825,
+      "fileType" : 8192
+    },
+    "\/scss\/meta-box.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/list-screen.scss",
+      "inputAbbreviatedPath" : "\/scss\/meta-box.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/list-screen.css",
+      "outputAbbreviatedPath" : "\/css\/meta-box.css",
       "fileType" : 4,
       "debugStyle" : 0
+    },
+    "\/images\/login-logo.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/images\/login-logo.png",
+      "processed" : 1,
+      "outputAbbreviatedPath" : "\/images\/login-logo.png",
+      "initialSize" : 8595,
+      "fileType" : 8192
+    },
+    "\/coffee\/admin.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/coffee\/admin.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/admin.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/coffee\/media-uploader.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/coffee\/media-uploader.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/media-uploader.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/scss\/admin.scss" : {
       "ignoreWasSetByUser" : 0,
@@ -35,36 +90,28 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
     },
-    "\/images\/bar-logo.png" : {
+    "\/scss\/list-screen.scss" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/bar-logo.png",
-      "processed" : 1,
-      "outputAbbreviatedPath" : "\/images\/bar-logo.png",
-      "initialSize" : 825,
-      "fileType" : 8192
+      "inputAbbreviatedPath" : "\/scss\/list-screen.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/list-screen.css",
+      "fileType" : 4,
+      "debugStyle" : 0
     },
-    "\/images\/login-logo.png" : {
+    "\/js\/admin.js" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/login-logo.png",
-      "processed" : 1,
-      "outputAbbreviatedPath" : "\/images\/login-logo.png",
-      "initialSize" : 8595,
-      "fileType" : 8192
-    },
-    "\/config.rb" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/config.rb",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 32768
+      "inputAbbreviatedPath" : "\/js\/admin.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
+      "fileType" : 64
     }
   },
   "manualImportLinks" : [
@@ -89,7 +136,7 @@
     "coffeeMinifyOutput" : 1,
     "javascriptOutputSuffix" : "-ck",
     "jadeOutputStyle" : 0,
-    "coffeeAutoOutputPathStyle" : 0,
+    "coffeeAutoOutputPathStyle" : 3,
     "autoSyncProjectSettingsFile" : 1,
     "lessAutoOutputPathReplace1" : "less",
     "jadeAutoOutputPathReplace1" : "",
@@ -126,9 +173,9 @@
     "stylusOutputStyle" : 0,
     "javascriptAutoOutputPathReplace2" : "",
     "sassAutoOutputPathRelativePath" : "..\/css",
-    "coffeeAutoOutputPathReplace1" : "",
+    "coffeeAutoOutputPathReplace1" : "coffee",
     "hamlUseDoubleQuotes" : 0,
-    "coffeeAutoOutputPathReplace2" : "",
+    "coffeeAutoOutputPathReplace2" : "js",
     "kitAutoOutputPathReplace1" : "",
     "uglifyReservedNamesString" : "",
     "coffeeOutputStyle" : 0,

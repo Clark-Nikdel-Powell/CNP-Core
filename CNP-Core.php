@@ -53,6 +53,10 @@ require_once CNP_PATH.'post-types/CNP-Post-Type.php';
 require_once CNP_PATH.'post-types/CNP-Post.php';
 require_once CNP_PATH.'post-types/CNP-Page.php';
 
+//META BOXES
+require_once CNP_PATH.'meta-boxes/CNP-Field-Factory.php';
+require_once CNP_PATH.'meta-boxes/CNP-Meta-Box.php';
+
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
 
@@ -114,6 +118,8 @@ final class CNP_Core {
 		//POST TYPES
 		CNP_Post_Post_Type::initialize();
 		CNP_Page_Post_Type::initialize();
+
+		//META BOXES
 
 		//PLUGIN ACTIONS
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
