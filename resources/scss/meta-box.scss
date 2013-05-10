@@ -1,3 +1,15 @@
+@import "compass/utilities/general/clearfix";
+
+.cnp-dashboard-form {
+	@include clearfix;
+
+	.cnp-submit {
+		text-align: right;
+		float: right;
+		line-height: 23px;
+	}
+}
+
 .cnp-fields {
 
 	&.form-table th { width: inherit; }
