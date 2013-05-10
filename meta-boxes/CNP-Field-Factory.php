@@ -82,7 +82,10 @@ class CNP_Meta_Box_Field_Factory {
 
 		//MEDIA
 		'media' => array(
-			'file_type' => 'image'
+		),
+
+		//REPEATABLE
+		'repeater' => array(
 		)
 	);
 
@@ -155,6 +158,19 @@ class CNP_Meta_Box_Field_Factory {
 				if ('' === $field['value']) $field['value'] = $field['default'];
 			break;
 
+			//SLIDER
+			case 'slider':
+				$field['value'] = $post_id > -1
+					? get_post_meta($post_id, $field['id'], true)
+					: get_option($field['id'], '');
+				
+				if ('' === $field['value']) $field['value'] = $field['default'];
+				$field['value'] = (int)$field['value'];
+
+				if ($field['value'] < $field['min']) $field['value'] = $field['min'];
+				if ($field['value'] > $field['max']) $field['value'] = $field['max'];
+			break;
+
 			//JUST GET POST META OR BLOG OPTION
 			default:
 				$field['value'] = $post_id > -1
@@ -183,6 +199,7 @@ class CNP_Meta_Box_Field_Factory {
 
 	protected static function sanitize_field_value($field) {
 		$value = isset($_POST[$field['id']]) ? $_POST[$field['id']] : '';
+		if ('checkbox' === $field['type']) $value = (bool)$value; 
 		$field['value'] = $value;
 		return $field;
 	}
@@ -240,7 +257,7 @@ class CNP_Meta_Box_Field_Factory {
 				printf(
 					'<input type="text" name="%1$s" id="%1$s" value="%2$s" %3$s/><br/><span class="description">%4$s</span>',
 					$field['id'],
-					$field['value'],
+					esc_attr($field['value']),
 					static::field_attributes($field),
 					$field['desc']
 				);
@@ -252,7 +269,7 @@ class CNP_Meta_Box_Field_Factory {
 					'<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea><br/><span class="description">%4$s</span>',
 					$field['id'],
 					static::field_attributes($field),
-					$field['value'],
+					esc_textarea($field['value']),
 					$field['desc']					
 				);
 			break;
@@ -272,7 +289,7 @@ class CNP_Meta_Box_Field_Factory {
 				$options = implode('', array_map(
 					function($o) use ($field) { return sprintf(
 						'<option value="%s" %s>%s</option>',
-						$o['value'],
+						esc_attr($o['value']),
 						$field['value'] === $o['value'] ? 'selected="selected"' : '',
 						$o['label']
 					);},
@@ -293,7 +310,7 @@ class CNP_Meta_Box_Field_Factory {
 					function($o) use ($field) { return sprintf(
 						'<input type="radio" name="%1$s" id="%1$s-%2$s" value="%2$s" %3$s /><label for="%1$s-%2$s"> %4$s</label><br/>',
 						$field['id'],
-						$o['value'],
+						esc_attr($o['value']),
 						$field['value'] === $o['value'] ? 'checked="checked"' : '',
 						$o['label']
 					);},
@@ -312,7 +329,7 @@ class CNP_Meta_Box_Field_Factory {
 					function($o) use ($field) { return sprintf(
 						'<input type="checkbox" name="%1$s[]" id="%1$s-%2$s" value="%2$s" %3$s /><label for="%1$s-%2$s"> %4$s</label><br/>',
 						$field['id'],
-						$o['value'],
+						esc_attr($o['value']),
 						is_array($field['value']) && in_array($o['value'], $field['value']) ? 'checked="checked"' : '',
 						$o['label']
 					);},
@@ -332,7 +349,7 @@ class CNP_Meta_Box_Field_Factory {
 				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
 						'<option value="%s" %s>%s</option>',
-						$o->slug,
+						esc_attr($o->slug),
 						$o->slug === $field['value'] ? 'selected="selected"' : '',
 						$o->name
 					);},
@@ -355,7 +372,7 @@ class CNP_Meta_Box_Field_Factory {
 						$pt = get_post_type_object($p->post_type);
 						return sprintf(
 							'<option value="%d" %s>%s</option>',
-							$p->ID,
+							esc_attr($p->ID),
 							$p->ID == $field['value'] ? 'selected="selected"' : '',
 							sprintf('%s: %s', $pt->labels->singular_name, $p->post_title)
 						);
@@ -375,7 +392,7 @@ class CNP_Meta_Box_Field_Factory {
 				printf(
 					'<input type="text" name="%1$s" id="%1$s" value="%2$s" %3$s/><br/><span class="description">%4$s</span><script>%5$s</script>',
 					$field['id'],
-					$field['value'],
+					esc_attr($field['value']),
 					static::field_attributes($field),
 					$field['desc'],
 					";jQuery(function($) { $('#{$field['id']}').datepicker(); });"
@@ -418,9 +435,54 @@ class CNP_Meta_Box_Field_Factory {
 					<small> <a href="#" class="cnp-media-remove" id="cnp-media-remove-%1$s">Remove</a>
 					<br><span class="description">%3$s</span></div><script>%5$s</script>',
 					$field['id'],
-					$field['value'],
+					esc_attr($field['value']),
 					$field['desc'],
 					$image_src,
+					$js
+				);
+			break;
+
+			case 'repeater':
+				$template = '<li><input type="text" name="%1$s[]" value="%2$s"/> <span class="sort handle button">↕</span>	<input type="button" class="cnp-repeater-remove button" value="-" /></li>';
+				$options = !is_array($field['value'])
+					? ''
+					: implode('', array_map(
+						function($o) use ($field, $template) { return sprintf($template, $field['id'], esc_attr($o)); },
+						$field['value']
+					));
+				$js_template = sprintf($template, $field['id'], '');
+				$js = "
+					;jQuery(function($) {
+						var template = $('$js_template');
+						var wrap = $('#cnp-field-id-{$field['id']}');
+						var list = $('#cnp-repeater-list-{$field['id']}');
+						var add  = $('#cnp-repeater-button-{$field['id']}');
+
+						add.click(function(e) {
+							e.preventDefault();
+							list.append(template.clone(true));
+						});
+
+						list.on('click', '.cnp-repeater-remove', function(e) {
+							e.preventDefault();
+							$(this).closest('li').remove();
+						});
+
+						list.sortable({
+							opacity: 0.6,
+							revert: true,
+							cursor: 'pointer',
+							handle: '.handle'
+						});
+					});
+				";
+				printf(
+					'<ul id="cnp-repeater-list-%1$s" class="cnp-repeater-list">%2$s</ul>
+					<input type="button" class="cnp-repeater-button button" id="cnp-repeater-button-%1$s" value="Add Field" />
+					<br><span class="description">%3$s</span></div><script>%4$s</script>',
+					$field['id'],
+					$options,
+					$field['desc'],
 					$js
 				);
 			break;
@@ -459,6 +521,10 @@ class CNP_Meta_Box_Field_Factory {
 		$fields = static::sanitize_field_values($fields);
 		foreach($fields as $field)
 			switch($field['type']) {
+				case 'checkbox':
+					update_post_meta($post_id, $field['id'], (int)$field['value']);
+				break;
+
 				case 'taxonomy':
 					wp_set_object_terms($post_id, $field['value'], $field['taxonomy']);  
 				break;
@@ -473,6 +539,10 @@ class CNP_Meta_Box_Field_Factory {
 		$fields = static::sanitize_field_values($fields);
 		foreach($fields as $field)
 			switch($field['type']) {
+				case 'checkbox':
+					update_option($field['id'], (int)$field['value']);
+				break;
+
 				default:
 					update_option($field['id'], $field['value']);
 			}
