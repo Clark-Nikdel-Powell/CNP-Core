@@ -57,6 +57,7 @@ require_once CNP_PATH.'post-types/CNP-Page.php';
 //META BOXES
 require_once CNP_PATH.'meta-boxes/CNP-Field-Factory.php';
 require_once CNP_PATH.'meta-boxes/CNP-Meta-Box.php';
+require_once CNP_PATH.'meta-boxes/CNP-Content-Freshness.php';
 
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
@@ -70,8 +71,6 @@ final class CNP_Core {
 	/**
 	 * Enforce that this plugin is loaded before all other plugins. This ensures 
 	 * that the classes added here are immediately available to other plugins.
-	 * 
-	 * @access public
 	 */
 	public static function load_first() {
 		$plugin_url = plugin_basename(__FILE__);
@@ -121,6 +120,7 @@ final class CNP_Core {
 		CNP_Page_Post_Type::initialize();
 
 		//META BOXES
+		CNP_Content_Freshness_Meta_Box::initialize();
 
 		//PLUGIN ACTIONS
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
