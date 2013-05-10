@@ -62,7 +62,11 @@ require_once CNP_PATH.'meta-boxes/CNP-Content-Freshness.php';
 //DASHBOARDD
 require_once CNP_PATH.'dashboard/General.php';
 require_once CNP_PATH.'dashboard/CNP-Dashboard-Widget.php';
+require_once CNP_PATH.'dashboard/CNP-Right-Now.php';
 require_once CNP_PATH.'dashboard/CNP-Content-Freshness.php';
+require_once CNP_PATH.'dashboard/CNP-Latest-News.php';
+
+
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
 
@@ -129,7 +133,10 @@ final class CNP_Core {
 
 		//DASHBOARD
 		CNP_Dashboard_General::initialize();
+		CNP_Right_Now_Widget::initialize();
 		CNP_Content_Freshness_Widget::initialize();
+		CNP_Latest_News_Widget::initialize();
+
 		//PLUGIN ACTIONS
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
 		add_action('after_setup_theme', array(__CLASS__, 'ready'), 999);
