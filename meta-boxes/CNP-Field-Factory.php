@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CNP_Meta_Box_Field_Factory {
 

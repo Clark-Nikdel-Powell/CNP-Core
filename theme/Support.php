@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CNP_Theme_Support {
 

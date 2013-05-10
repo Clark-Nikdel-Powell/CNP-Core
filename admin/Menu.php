@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CNP_Admin_Menu {
 

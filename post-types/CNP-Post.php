@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CNP_Post_Post_Type extends CNP_Post_Type {
 

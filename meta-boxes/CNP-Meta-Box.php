@@ -1,4 +1,4 @@
-<?
+<?php
 
 abstract class CNP_Meta_Box {
 
