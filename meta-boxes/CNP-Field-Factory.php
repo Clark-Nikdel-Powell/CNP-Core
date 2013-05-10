@@ -118,8 +118,11 @@ class CNP_Meta_Box_Field_Factory {
 		if (!is_array($options)) $options = array();
 		$new_options = array();
 
-		foreach($options as $option) {
-			if (!is_array($option)) $option = array('value' => $option);
+		foreach($options as $key => $option) {		
+			if (!is_array($option)) {
+				if (is_string($key)) $option = array('value' => $key, 'label' => $option);
+				else $option = array('value' => $option);
+			}
 
 			$option = wp_parse_args($option, static::$option_default);
 
