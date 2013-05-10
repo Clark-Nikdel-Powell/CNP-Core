@@ -59,6 +59,10 @@ require_once CNP_PATH.'meta-boxes/CNP-Field-Factory.php';
 require_once CNP_PATH.'meta-boxes/CNP-Meta-Box.php';
 require_once CNP_PATH.'meta-boxes/CNP-Content-Freshness.php';
 
+//DASHBOARDD
+require_once CNP_PATH.'dashboard/General.php';
+require_once CNP_PATH.'dashboard/CNP-Dashboard-Widget.php';
+require_once CNP_PATH.'dashboard/CNP-Content-Freshness.php';
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
 
@@ -109,6 +113,7 @@ final class CNP_Core {
 		CNP_Admin_Bar::initialize();
 		CNP_Admin_Menu::initialize();
 
+
 		//THEME
 		CNP_Theme_General::initialize();
 		CNP_Theme_Support::initialize();
@@ -122,6 +127,9 @@ final class CNP_Core {
 		//META BOXES
 		CNP_Content_Freshness_Meta_Box::initialize();
 
+		//DASHBOARD
+		CNP_Dashboard_General::initialize();
+		CNP_Content_Freshness_Widget::initialize();
 		//PLUGIN ACTIONS
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
 		add_action('after_setup_theme', array(__CLASS__, 'ready'), 999);
