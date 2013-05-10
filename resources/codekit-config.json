@@ -2,25 +2,17 @@
   "CodeKitInfo" : "This is a CodeKit project configuration file. It is designed to sync project settings across multiple machines. Modifying the contents of this file can be a poor life decision if you don't know what you're doing. This file is not useful unless accompanied by the project that created it in CodeKit. For more information, see: http:\/\/incident57.com\/codekit",
   "creatorBuild" : "8283",
   "files" : {
-    "\/config.rb" : {
+    "\/coffee\/content-freshness.coffee" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/config.rb",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 32768
-    },
-    "\/images\/bar-logo.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/bar-logo.png",
-      "processed" : 1,
-      "outputAbbreviatedPath" : "\/images\/bar-logo.png",
-      "initialSize" : 825,
-      "fileType" : 8192
+      "inputAbbreviatedPath" : "\/coffee\/content-freshness.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/content-freshness.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/scss\/meta-box.scss" : {
       "ignoreWasSetByUser" : 0,
@@ -34,29 +26,6 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/images\/login-logo.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/login-logo.png",
-      "processed" : 1,
-      "outputAbbreviatedPath" : "\/images\/login-logo.png",
-      "initialSize" : 8595,
-      "fileType" : 8192
-    },
-    "\/coffee\/admin.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/coffee\/admin.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/js\/admin.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
     "\/coffee\/media-uploader.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -68,27 +37,6 @@
       "outputAbbreviatedPath" : "\/js\/media-uploader.js",
       "outputStyle" : 0,
       "fileType" : 32
-    },
-    "\/scss\/admin.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/admin.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/admin.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
-    "\/css\/admin.css" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/css\/admin.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
     },
     "\/scss\/list-screen.scss" : {
       "ignoreWasSetByUser" : 0,
@@ -102,6 +50,62 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
+    "\/coffee\/latest-news.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/coffee\/latest-news.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/latest-news.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/config.rb" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/config.rb",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 32768
+    },
+    "\/coffee\/admin.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/coffee\/admin.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/admin.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/images\/login-logo.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/images\/login-logo.png",
+      "processed" : 1,
+      "outputAbbreviatedPath" : "\/images\/login-logo.png",
+      "initialSize" : 8595,
+      "fileType" : 8192
+    },
+    "\/scss\/right-now.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/right-now.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
     "\/js\/admin.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -112,6 +116,74 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/js\/admin-ck.js",
       "fileType" : 64
+    },
+    "\/scss\/admin.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/admin.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/admin.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/scss\/latest-news.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/latest-news.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/latest-news.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/coffee\/right-now.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/coffee\/right-now.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/right-now.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/images\/bar-logo.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/images\/bar-logo.png",
+      "processed" : 1,
+      "outputAbbreviatedPath" : "\/images\/bar-logo.png",
+      "initialSize" : 825,
+      "fileType" : 8192
+    },
+    "\/css\/admin.css" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/css\/admin.css",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 16
+    },
+    "\/scss\/content-freshness.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/content-freshness.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/content-freshness.css",
+      "fileType" : 4,
+      "debugStyle" : 0
     }
   },
   "manualImportLinks" : [
@@ -187,6 +259,7 @@
       "trailing" : 1,
       "nonew" : 1,
       "withstmt" : 0,
+      "yui" : 0,
       "mootools" : 0,
       "proto" : 0,
       "boss" : 0,
@@ -220,8 +293,10 @@
       "noarg" : 1,
       "supernew" : 0,
       "node" : 1,
+      "unused" : 1,
       "debug" : 0,
       "bitwise" : 1,
+      "white" : 0,
       "browser" : 1,
       "worker" : 0,
       "laxcomma" : 0,
@@ -260,7 +335,6 @@
       "confusion" : 0,
       "evil" : 0,
       "on" : 0,
-      "cap" : 0,
       "windows" : 0,
       "devel" : 0,
       "rhino" : 0,
@@ -293,7 +367,7 @@
   },
   "projectAttributes" : {
     "bourbonEnabled" : 0,
-    "displayValue" : "resources",
+    "displayValue" : "CNP Core",
     "displayValueWasSetByUser" : 1,
     "compassEnabled" : 1
   }
