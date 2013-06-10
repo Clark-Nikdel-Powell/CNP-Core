@@ -32,12 +32,15 @@ class CNP_Right_Now_Widget extends CNP_Dashboard_Widget {
 							$counts = (array)wp_count_posts($pt->name, 'readable'); 
 							$edit_link = $pt->name == 'attachment' ? 'upload.php' : 'edit.php?post_type='.$pt->name;
 							$draft_link = $edit_link.'&post_status=draft';
+							$pending_link = $edit_link.'&post_status=pending';
 						?>
 							<tr>
 								<td><a href="<?= $edit_link; ?>"><?= array_sum($counts) - $counts["auto-draft"]; ?></a></td>
 								<td>
 									<a href="<?= $edit_link; ?>"><?= $pt->labels->name;?></a>
-									<? if ($counts["draft"]) { ?> <a href="<?= $draft_link; ?>"><small><?= $counts["draft"]; ?> Drafts</small></a><? } ?></td>
+									<? if ($counts["draft"]) { ?> <a href="<?= $draft_link; ?>"><small><?= $counts["draft"]; ?> Drafts</small></a><? } ?>
+									<? if ($counts["pending"]) { ?> <a href="<?= $pending_link; ?>"><small><?= $counts["pending"]; ?> Pending</small></a><? } ?>
+								</td>
 							</tr>
 						<? } ?>
 					</tbody>
