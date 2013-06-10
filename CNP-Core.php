@@ -72,6 +72,7 @@ require_once CNP_PATH.'users/Roles.php';
 
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
+require_once CNP_PATH.'functions/time.php';
 
 ////////////////////////////////////////////////////////////////////////////////
 // ROOT PLUGIN CLASS
