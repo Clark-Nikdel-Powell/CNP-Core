@@ -2,13 +2,23 @@
 
 /**
  * Link to files in the theme safely (will account for HTTP/HTTPS)
- * @access public
  * @param  string $path Path relative to the theme to a file/directory
  * @return string       Absolute path to theme resource
  */
 function cnp_theme_url($path) {
 	$path = ltrim(trim($path), '/');
 	$base = trailingslashit(get_stylesheet_directory_uri());
+	return $base.$path;
+}
+
+/**
+ * Get path to files in the theme safely
+ * @param  string $path Path relative to the theme to a file/directory
+ * @return string       Absolute path to theme resource
+ */
+function cnp_theme_path($path) {
+	$path = ltrim(trim($path), '/');
+	$base = trailingslashit(get_stylesheet_directory());
 	return $base.$path;
 }
 
