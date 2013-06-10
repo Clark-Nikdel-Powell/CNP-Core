@@ -66,6 +66,9 @@ require_once CNP_PATH.'dashboard/CNP-Right-Now.php';
 require_once CNP_PATH.'dashboard/CNP-Content-Freshness.php';
 require_once CNP_PATH.'dashboard/CNP-Latest-News.php';
 
+//USERS
+require_once CNP_PATH.'users/General.php';
+require_once CNP_PATH.'users/Roles.php';
 
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
@@ -136,6 +139,10 @@ final class CNP_Core {
 		CNP_Right_Now_Widget::initialize();
 		CNP_Content_Freshness_Widget::initialize();
 		CNP_Latest_News_Widget::initialize();
+
+		//USERS
+		CNP_Users_General::initialize();
+		CNP_Users_Roles::initialize();
 
 		//PLUGIN ACTIONS
 		add_action('activated_plugin', array(__CLASS__, 'load_first'));
