@@ -73,8 +73,29 @@ class CNP_Theme_Images {
 		}
 	}
 
+	public static function gallery_style($style) {
+		return '<div class="gallery">';
+	}
+
+	public static function img_caption_shortcode($x=null, $attr, $content) {
+		extract(shortcode_atts(array(
+			'id'       => '',
+			'align'    => 'alignnone',
+			'width'    => '',
+			'caption'  => ''
+		), $attr));
+
+		if ( 1 > (int) $width || empty($caption) ) return $content;
+		if ( $id ) $id = 'id="' . $id . '" ';
+
+		return '<div ' . $id . 'class="wp-caption ' . $align . '" style="width: ' . ((int) $width) . 'px">'
+		. $content . '<p class="wp-caption-text">' . $caption . '</p></div>';		
+	}
+
 	public static function initialize() {
 		add_action('cnp_ready', array(__CLASS__, 'add_image_sizes'));
+		add_filter('gallery_style', array(__CLASS__, 'gallery_style'));
+		add_filter('img_caption_shortcode', array(__CLASS__, 'img_caption_shortcode'));
 	}
 
 }

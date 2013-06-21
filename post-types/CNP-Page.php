@@ -10,6 +10,10 @@ class CNP_Page_Post_Type extends CNP_Post_Type {
 		'comments'
 	);
 
+	protected static $add_supports = array(
+		'excerpt'
+	);
+
 	public static function register() { /* NOOP */ }
 
 }

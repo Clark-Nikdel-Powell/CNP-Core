@@ -38,6 +38,12 @@ abstract class CNP_Post_Type {
 	protected static $supports = null;
 
 	/**
+	 * An array of features to add to the post type
+	 * @var array
+	 */
+	protected static $add_supports = null;
+
+	/**
 	 * An array of features to remove from the post type
 	 * @var array
 	 */
@@ -90,6 +96,16 @@ abstract class CNP_Post_Type {
 			$args = wp_parse_args(static::$args, $args);
 
 		register_post_type(static::$name, $args);
+	}
+
+	/**
+	 * Adds features to post type
+	 * @access  public
+	 */
+	public static function add_supports() {
+		if (!is_array(static::$add_supports)) return;
+		foreach(static::$add_supports as $feature)
+			add_post_type_support(static::$name, $feature);
 	}
 
 	/**
@@ -325,6 +341,7 @@ abstract class CNP_Post_Type {
 		$name = static::$name;
 
 		add_action('init', array($cls, 'register'));
+		add_action('init', array($cls, 'add_supports'));
 		add_action('init', array($cls, 'remove_supports'));
 
 		add_filter("manage_edit-{$name}_columns", array($cls, 'manage_columns'));

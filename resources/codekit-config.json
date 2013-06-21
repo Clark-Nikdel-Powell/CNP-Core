@@ -62,6 +62,15 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/config.rb" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/config.rb",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 32768
+    },
     "\/coffee\/admin.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -71,18 +80,6 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/js\/admin.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
-    "\/coffee\/right-now.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/coffee\/right-now.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/js\/right-now.js",
       "outputStyle" : 0,
       "fileType" : 32
     },
@@ -97,17 +94,16 @@
       "initialSize" : 8595,
       "fileType" : 8192
     },
-    "\/scss\/right-now.scss" : {
+    "\/js\/admin.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/right-now.css",
-      "fileType" : 4,
-      "debugStyle" : 0
+      "inputAbbreviatedPath" : "\/js\/admin.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
+      "fileType" : 64
     },
     "\/css\/admin.css" : {
       "ignoreWasSetByUser" : 0,
@@ -130,28 +126,29 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/scss\/latest-news.scss" : {
+    "\/coffee\/users.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/latest-news.scss",
+      "inputAbbreviatedPath" : "\/coffee\/users.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/users.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/scss\/right-now.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/latest-news.css",
+      "outputAbbreviatedPath" : "\/css\/right-now.css",
       "fileType" : 4,
       "debugStyle" : 0
-    },
-    "\/js\/admin.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/admin.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
-      "fileType" : 64
     },
     "\/images\/bar-logo.png" : {
       "ignoreWasSetByUser" : 0,
@@ -164,26 +161,29 @@
       "initialSize" : 825,
       "fileType" : 8192
     },
-    "\/config.rb" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/config.rb",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 32768
-    },
-    "\/coffee\/users.coffee" : {
+    "\/coffee\/right-now.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/coffee\/users.coffee",
+      "inputAbbreviatedPath" : "\/coffee\/right-now.coffee",
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/js\/users.js",
+      "outputAbbreviatedPath" : "\/js\/right-now.js",
       "outputStyle" : 0,
       "fileType" : 32
+    },
+    "\/scss\/latest-news.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/latest-news.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/latest-news.css",
+      "fileType" : 4,
+      "debugStyle" : 0
     },
     "\/scss\/content-freshness.scss" : {
       "ignoreWasSetByUser" : 0,

@@ -41,13 +41,14 @@ class CNP_Admin_TinyMCE {
 	}
 
 	public static function add_editor_style() { 
-		add_editor_style(static::$editor_stylesheet); 
+		$style = apply_filters('cnp_tinymce_style', static::$editor_stylesheet);
+		add_editor_style($style); 
 	}
 
 	public static function initialize() {
 		add_filter('mce_buttons', array(get_called_class(), 'mce_buttons_first_row'));
 		add_filter('mce_buttons_2', array(get_called_class(), 'mce_buttons_second_row'));
-		add_action('init', array(get_called_class(), 'add_editor_style'));	
+		add_action('admin_init', array(get_called_class(), 'add_editor_style'));	
 	}
 
 }
