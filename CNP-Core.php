@@ -42,6 +42,7 @@ require_once CNP_PATH.'admin/General.php';
 require_once CNP_PATH.'admin/Login.php';
 require_once CNP_PATH.'admin/Bar.php';
 require_once CNP_PATH.'admin/Menu.php';
+require_once CNP_PATH.'admin/TinyMCE.php';
 
 //THEME
 require_once CNP_PATH.'theme/General.php';
@@ -69,6 +70,9 @@ require_once CNP_PATH.'dashboard/CNP-Latest-News.php';
 //USERS
 require_once CNP_PATH.'users/General.php';
 require_once CNP_PATH.'users/Roles.php';
+
+//SETTINGS
+require_once CNP_PATH.'settings/social.php';
 
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
@@ -100,6 +104,7 @@ final class CNP_Core {
 
 	public static function activation() {
 		add_action('shutdown', array('CNP_Theme_Images', 'override_image_sizes'));
+		CNP_Users_Roles::manipulate_roles();
 	}
 
 	public static function deactivation() {
@@ -120,7 +125,7 @@ final class CNP_Core {
 		CNP_Admin_Login::initialize();
 		CNP_Admin_Bar::initialize();
 		CNP_Admin_Menu::initialize();
-
+		CNP_Admin_TinyMCE::initialize();
 
 		//THEME
 		CNP_Theme_General::initialize();
@@ -140,6 +145,9 @@ final class CNP_Core {
 		CNP_Right_Now_Widget::initialize();
 		CNP_Content_Freshness_Widget::initialize();
 		CNP_Latest_News_Widget::initialize();
+
+		//SETTINGS
+		CNP_Settings_Social::initialize();
 
 		//USERS
 		CNP_Users_General::initialize();

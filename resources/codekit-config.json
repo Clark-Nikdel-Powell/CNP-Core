@@ -83,41 +83,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/coffee\/users.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/coffee\/users.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/js\/users.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
-    "\/scss\/right-now.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/right-now.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
-    "\/js\/admin.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/admin.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
-      "fileType" : 64
-    },
     "\/images\/login-logo.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -129,15 +94,15 @@
       "initialSize" : 8595,
       "fileType" : 8192
     },
-    "\/scss\/latest-news.scss" : {
+    "\/scss\/right-now.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/latest-news.scss",
+      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/latest-news.css",
+      "outputAbbreviatedPath" : "\/css\/right-now.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -152,17 +117,6 @@
       "outputAbbreviatedPath" : "\/css\/admin.css",
       "fileType" : 4,
       "debugStyle" : 0
-    },
-    "\/images\/bar-logo.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/bar-logo.png",
-      "processed" : 1,
-      "outputAbbreviatedPath" : "\/images\/bar-logo.png",
-      "initialSize" : 825,
-      "fileType" : 8192
     },
     "\/css\/admin.css" : {
       "ignoreWasSetByUser" : 0,
@@ -182,6 +136,52 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/js\/right-now.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/js\/admin.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/js\/admin.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
+      "fileType" : 64
+    },
+    "\/images\/bar-logo.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/images\/bar-logo.png",
+      "processed" : 1,
+      "outputAbbreviatedPath" : "\/images\/bar-logo.png",
+      "initialSize" : 825,
+      "fileType" : 8192
+    },
+    "\/scss\/latest-news.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/latest-news.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/latest-news.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/coffee\/users.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/coffee\/users.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/js\/users.js",
       "outputStyle" : 0,
       "fileType" : 32
     },
