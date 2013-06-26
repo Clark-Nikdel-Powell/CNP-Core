@@ -29,7 +29,7 @@ class CNP_Users_Roles {
 		)
 	);
 
-	protected static $capabilites_to_remove = array(
+	protected static $capabilities_to_remove = array(
 	/*
 		'editor' => array(
 			'capability'
