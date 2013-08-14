@@ -67,6 +67,7 @@ abstract class CNP_Post_Type {
 	 */
 	protected final static function default_args() {
 		return array(
+			'public' => true,
 			'menu_position' => 20,
 			'supports' => array(
 				'title',
