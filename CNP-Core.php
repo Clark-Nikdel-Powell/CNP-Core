@@ -10,7 +10,7 @@
 	Copyright 2013+ Clark/Nikdel/Powell (email : croche@clarknikdelpowell.com)
 
 	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License, version 2 (or later), 
+	it under the terms of the GNU General Public License, version 2 (or later),
 	as published by the Free Software Foundation.
 
 	This program is distributed in the hope that it will be useful,
@@ -71,9 +71,6 @@ require_once CNP_PATH.'dashboard/CNP-Latest-News.php';
 require_once CNP_PATH.'users/General.php';
 require_once CNP_PATH.'users/Roles.php';
 
-//SETTINGS
-require_once CNP_PATH.'settings/social.php';
-
 //FUNCTIONS
 require_once CNP_PATH.'functions/theme.php';
 require_once CNP_PATH.'functions/time.php';
@@ -85,7 +82,7 @@ require_once CNP_PATH.'functions/time.php';
 final class CNP_Core {
 
 	/**
-	 * Enforce that this plugin is loaded before all other plugins. This ensures 
+	 * Enforce that this plugin is loaded before all other plugins. This ensures
 	 * that the classes added here are immediately available to other plugins.
 	 */
 	public static function load_first() {
@@ -145,9 +142,6 @@ final class CNP_Core {
 		CNP_Right_Now_Widget::initialize();
 		CNP_Content_Freshness_Widget::initialize();
 		CNP_Latest_News_Widget::initialize();
-
-		//SETTINGS
-		CNP_Settings_Social::initialize();
 
 		//USERS
 		CNP_Users_General::initialize();
