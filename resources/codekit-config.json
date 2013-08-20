@@ -62,15 +62,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/config.rb" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/config.rb",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 32768
-    },
     "\/coffee\/admin.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -82,40 +73,6 @@
       "outputAbbreviatedPath" : "\/js\/admin.js",
       "outputStyle" : 0,
       "fileType" : 32
-    },
-    "\/images\/login-logo.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/login-logo.png",
-      "processed" : 1,
-      "outputAbbreviatedPath" : "\/images\/login-logo.png",
-      "initialSize" : 8595,
-      "fileType" : 8192
-    },
-    "\/js\/admin.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/admin.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
-      "fileType" : 64
-    },
-    "\/scss\/admin.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/admin.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/admin.css",
-      "fileType" : 4,
-      "debugStyle" : 0
     },
     "\/coffee\/right-now.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -129,15 +86,37 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/scss\/right-now.scss" : {
+    "\/js\/admin.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
+      "inputAbbreviatedPath" : "\/js\/admin.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/js\/admin-ck.js",
+      "fileType" : 64
+    },
+    "\/images\/login-logo.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/images\/login-logo.png",
+      "processed" : 1,
+      "outputAbbreviatedPath" : "\/images\/login-logo.png",
+      "initialSize" : 8595,
+      "fileType" : 8192
+    },
+    "\/scss\/admin.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/admin.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/right-now.css",
+      "outputAbbreviatedPath" : "\/css\/admin.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -152,6 +131,27 @@
       "outputAbbreviatedPath" : "\/js\/users.js",
       "outputStyle" : 0,
       "fileType" : 32
+    },
+    "\/config.rb" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/config.rb",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 32768
+    },
+    "\/scss\/right-now.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/scss\/right-now.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/right-now.css",
+      "fileType" : 4,
+      "debugStyle" : 0
     },
     "\/images\/bar-logo.png" : {
       "ignoreWasSetByUser" : 0,
