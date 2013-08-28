@@ -7,8 +7,8 @@ class CNP_Admin_Login {
 	 * @access public
 	 * @return string The site url set in Settings
 	 */
-	public static function update_login_url() { 
-		return 'http://clarknikdelpowell.com/'; 
+	public static function update_login_url() {
+		return 'http://clarknikdelpowell.com/';
 	}
 
 	/**
@@ -23,14 +23,14 @@ class CNP_Admin_Login {
 	/**
 	 * Changes the login logo to the CNP logo, and can be
 	 * overwritten with a client logo as desired.
-	 * 
+	 *
 	 * @access public
 	 */
 	public static function update_login_logo() {
 		$default_image = 'resources/images/login-logo.png';
 		$default_size  = array(548, 126);
 		$desired_width = 274;
-		
+
 		$image = apply_filters('cnp_login_logo', CNP_URL.$default_image);
 		$size  = apply_filters('cnp_login_logo_size', $default_size);
 
@@ -45,6 +45,7 @@ class CNP_Admin_Login {
 			.login h1 a {
 				background-image: <?= "url('$image')"; ?>;
 				background-size: <?= "{$resize[0]}px {$resize[1]}px" ?>;
+				width: <?= $resize[0].'px' ?>;
 				height: <?= ($resize[1] + 4).'px'; ?>;
 			}
 		</style><?php

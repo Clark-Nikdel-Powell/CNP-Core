@@ -36,7 +36,7 @@ class CNP_Latest_News_Widget extends CNP_Dashboard_Widget {
               	title="<?php printf( 'Posted %s by %s', $item->get_date('j F Y'), $item->get_author()->get_name()); ?>">
                 <h4><?php echo esc_html( $item->get_title() ); ?></h4>
               </a>
-              <p><? echo esc_html( $item->get_description() ); ?></p>
+              <p><? echo esc_html( strip_tags($item->get_description()) ); ?></p>
 						</li>
 					<?
 				}

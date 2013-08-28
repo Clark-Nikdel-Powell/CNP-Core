@@ -86,7 +86,7 @@ class CNP_Admin_Bar {
 		$nodes_to_add[] = array(
 			'id'    => 'wp-logo',
 			'title' => sprintf(
-				'<span class="ab-icon"></span><span class="ab-label"> %s</span>', 
+				'<span class="ab-icon"></span><span class="ab-label"> %s</span>',
 				apply_filters('cnp_admin_bar_title', get_bloginfo('name'))
 			),
 			'href'  => apply_filters('cnp_admin_bar_url', is_admin() ? get_site_url() : get_admin_url()),
@@ -130,11 +130,18 @@ class CNP_Admin_Bar {
 		if (!$logo_image) return;
 		?>
 			<style type="text/css">
-				#wp-admin-bar-wp-logo > .ab-item .ab-icon { 
-					background-image:url('<?= $logo_image; ?>') !important; 
+				#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon {
+					background-image:url('<?= $logo_image; ?>') !important;
 					background-position:0 0;
-				} 
-				#wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon, 
+				}
+				.mp6 #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon {
+					margin: 5px 6px 5px 0px;
+					padding: 0;
+				}
+				.mp6 #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
+					display: none;
+				}
+				#wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
 				#wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {
 					background-position:0 -21px;
 				}
