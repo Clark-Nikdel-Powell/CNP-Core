@@ -29,7 +29,7 @@ function cnp_theme_path($path) {
 /**
  * Returns an appropriate description for the current page. Can be modified
  * using the cnp_description filter.
- * 
+ *
  * @access public
  */
 function cnp_description() {
@@ -85,7 +85,7 @@ function cnp_schema_prop($prop) {
 /**
  * Defines a schema property that has no corresponding element on the page
  * as a meta element
- * 
+ *
  * @access public
  * @param  string $prop    Upper CamelCase property name
  * @param  string $content Value of the property
@@ -160,7 +160,7 @@ function cnp_highest_ancestor() {
 }
 
 function highest_ancestor($args=0) {
-	
+
 	// merge passed arguments and defaults
 	$defaults = array(
 		'print'  => 0
@@ -169,17 +169,17 @@ function highest_ancestor($args=0) {
 	);
 	$vars = wp_parse_args($args, $defaults);
 	$posttype = get_post_type();
-	
+
 	if ( is_home() ) :
-	
+
 		$ancestor = array(
 			'id'   => 0
 		,	'slug' => 'home'
 		,	'name' => 'Home'
 		);
-		
+
 	elseif ( is_tax() ) :
-		
+
 		global $wp_query;
 		$tax = $wp_query->get_queried_object();
 		$ancestor = array(
@@ -187,12 +187,13 @@ function highest_ancestor($args=0) {
 		,	'slug' => $tax->slug
 		,	'name' => $tax->name
 		);
-		
+
 	elseif ( is_archive() || is_single() ) :
-		
+
 		if ( $posttype && $posttype!='post' && $posttype!='page' ) :
 			global $wp_query;
 			$archive = $wp_query->get_queried_object();
+			if (is_singular()) {$archive = get_post_type_object($archive->post_type);}
 			$ancestor = array(
 				'slug'      => $archive->rewrite['slug']
 			,	'name'      => $archive->labels->name
@@ -207,11 +208,11 @@ function highest_ancestor($args=0) {
 				global $wp_query;
 				$archive = $wp_query->get_queried_object();
 			endif;
-	
+
 			while ($archive->parent != 0) :
 				$archive = get_category($archive->parent);
 			endwhile;
-			
+
 			$ancestor = array(
 				'id'   => $archive->cat_ID
 			,	'slug' => $archive->slug
@@ -219,7 +220,7 @@ function highest_ancestor($args=0) {
 			,	'count' => $archive->count
 			);
 		endif;
-		
+
 	elseif ( is_search() ) :
 
 		$ancestor = array(
@@ -227,40 +228,40 @@ function highest_ancestor($args=0) {
 		,	'slug' => 'search'
 		,	'name' => 'Search Results'
 		);
-	
+
 	elseif ( is_page() ) :
 
 		global $post;
 		$page = $post;
-		
+
 		while ($page->post_parent > 0 && $page->post_parent != $vars['stopat']) :
 			$page = get_post($page->post_parent);
 		endwhile;
-		
+
 		$ancestor = array(
 			'id'   => $page->ID
 		,	'slug' => $page->post_name
 		,	'name' => $page->post_title
 		);
-	
+
 	elseif ($posttype && $posttype!='post' && $posttype!='page' ) :
-		
+
 		$posttype = get_post_type_object($posttype);
 		$ancestor = array(
 			'slug' => sanitize_html_class(strtolower($posttype->labels->name))
 		,	'name' => $posttype->labels->name
 		);
-		
+
 	else :
-	
+
 		$ancestor = array(
 			'id'   => 0
 		,	'slug' => '404'
 		,	'name' => 'Page Not Found'
 		);
-	
+
 	endif;
-	
+
 	if     ($vars['print'])  : print $ancestor[$vars['print']];
 	elseif ($vars['return']) : return $ancestor[$vars['return']];
 	else : return $ancestor;
@@ -273,7 +274,7 @@ function highest_ancestor($args=0) {
 //-----------------------------------------------------------------------------
 
 function pagination($prev='&larr; Previous', $next='Next &rarr;') {
-	
+
 	global $wp_query, $wp_rewrite;
 	$wp_query->query_vars['paged'] > 1 ? $current = $wp_query->query_vars['paged'] : $current = 1;
 	$pagination = array(
@@ -285,10 +286,10 @@ function pagination($prev='&larr; Previous', $next='Next &rarr;') {
 		'next_text' => __($next),
 		'type'      => 'plain'
 	);
-	
+
 	$links = paginate_links($pagination);
 	echo $links
 		? '<p id="pagination">'.$links.'</p>'
 		: '';
-		
+
 }
