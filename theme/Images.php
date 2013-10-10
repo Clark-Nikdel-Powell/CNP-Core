@@ -13,7 +13,7 @@ class CNP_Theme_Images {
 			'crop'   => true
 		),
 		'medium' => array(
-			'width'  => 650,
+			'width'  => 640,
 			'height' => 0,
 			'crop'   => false
 		),
@@ -89,7 +89,7 @@ class CNP_Theme_Images {
 		if ( $id ) $id = 'id="' . $id . '" ';
 
 		return '<div ' . $id . 'class="wp-caption ' . $align . '" style="width: ' . ((int) $width) . 'px">'
-		. $content . '<p class="wp-caption-text">' . $caption . '</p></div>';		
+		. $content . '<p class="wp-caption-text">' . $caption . '</p></div>';
 	}
 
 	public static function initialize() {
