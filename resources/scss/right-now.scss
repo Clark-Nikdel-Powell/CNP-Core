@@ -1,0 +1,70 @@
+@import "compass/utilities/general/clearfix";
+
+#cnp-right-now {
+
+	#cnp-right-now-container { 
+		display: table;
+		@include clearfix; 
+	}
+
+	#right-now-details {
+		line-height: 2;
+		color: #515151;
+
+		b {
+			font-size: 1.25em;
+			line-height: 1.5;
+			color: #222;
+		}
+
+		.blog-name { color: #21759b; }
+		.wordpress-version { color: green; }
+		.theme-name { color: orange; }
+		.active-plugins { color: purple; }
+		.blog-public { color: red; }
+	}
+
+	h4 {
+		font-size: 1.5em;
+		padding-bottom: .15em;
+		margin-bottom: .5em;
+		color: rgba(0, 0, 0, 0.2);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.right-now-block {
+		display: table-cell;
+		width: 50%;
+		padding: 1em;
+	}
+
+	table { 
+		width: 100%; 
+		border-spacing: 0;
+	}
+
+	td {
+		font-size: 1.25em;
+		line-height: 1.5;
+
+		&:first-child {
+			font-size: 1.5em;
+
+			font-weight: bold;
+			width: 1%;
+			padding-right: 6px;
+			text-align: right;
+		}
+
+		small {
+			color: rgba(0, 0, 0, 0.2);
+		}
+
+	}
+
+	.empty {
+		text-align: center;
+		opacity: 0.75;
+	}
+
+}
