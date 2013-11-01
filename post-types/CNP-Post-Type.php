@@ -13,7 +13,7 @@ abstract class CNP_Post_Type {
 	/**
 	 * The name of the post type used in registering and accessing this CPT.
 	 * Maximum 20 charaacters, can not contain capital letters or spaces.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected static $name = null;
@@ -83,15 +83,26 @@ abstract class CNP_Post_Type {
 
 	/**
 	 * Registers the post type with WordPress. This method
-	 * should not be called directly. 
+	 * should not be called directly.
 	 */
 	public static function register() {
 		$args = static::default_args();
-		
-		if (is_array(static::$labels))       $args['labels']       = static::$labels;
+
 		if (is_array(static::$supports))     $args['supports']     = static::$supports;
 		if (is_array(static::$capabilities)) $args['capabilities'] = static::$capabilities;
 		if (is_array(static::$taxonomies))   $args['taxonomies']   = static::$taxonomies;
+		if (is_array(static::$labels)) {
+			static::$labels['add_new_item']       = 'Add New '.static::$labels['singular_name'];
+			static::$labels['edit_item']          = 'Edit '.static::$labels['singular_name'];
+			static::$labels['new_item']           = 'New '.static::$labels['singular_name'];
+			static::$labels['view_item']          = 'View '.static::$labels['singular_name'];
+			static::$labels['search_items']       = 'Search '.static::$labels['plural_name'];
+			static::$labels['not_found']          = 'No '.strtolower(static::$labels['plural_name']).' found';
+			static::$labels['not_found_in_trash'] = 'No '.strtolower(static::$labels['plural_name']).' found in Trash';
+			static::$labels['parent_item_colon']  = 'Parent '.static::$labels['singular_name'];
+
+			$args['labels'] = static::$labels;
+		}
 
 		if (is_array(static::$args))
 			$args = wp_parse_args(static::$args, $args);
@@ -110,7 +121,7 @@ abstract class CNP_Post_Type {
 	}
 
 	/**
-	 * Removes features from post type 
+	 * Removes features from post type
 	 * @access public
 	 */
 	public static function remove_supports() {
@@ -160,7 +171,7 @@ abstract class CNP_Post_Type {
 				$cols[$col] = $name;
 
 		//move columns to end
-		if (is_array(static::$columns_to_end)) 
+		if (is_array(static::$columns_to_end))
 			foreach (static::$columns_to_end as $col) {
 				if (!array_key_exists($col, $cols)) continue;
 				$val = $cols[$col];
@@ -174,7 +185,7 @@ abstract class CNP_Post_Type {
 	/**
 	 * Set the value of a particular column for a particular post_id
 	 * for this post type.
-	 * 
+	 *
 	 * @access public
 	 */
 	public static function column_values($col, $post_id) {
@@ -351,7 +362,7 @@ abstract class CNP_Post_Type {
 		add_filter('enter_title_here', array($cls, 'enter_title_here'));
 
 		add_action('do_meta_boxes', array($cls, 'move_meta_boxes'));
-		add_action('do_meta_boxes', array($cls, 'remove_meta_boxes'));		
+		add_action('do_meta_boxes', array($cls, 'remove_meta_boxes'));
 	}
 
 	public static function initialize() {
