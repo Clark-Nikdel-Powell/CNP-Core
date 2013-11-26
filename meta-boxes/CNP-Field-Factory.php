@@ -63,9 +63,14 @@ class CNP_Meta_Box_Field_Factory {
 		),
 
 		//POST SELECTOR
-		'post' => array(
+		'post_select' => array(
 			'query' => array(),
 			'attr'  => array()
+		),
+
+		//POST CHECKBOX GROUP
+		'post_checkbox_group' => array(
+			'options' => array()
 		),
 
 		//DATE PICKER
@@ -97,7 +102,7 @@ class CNP_Meta_Box_Field_Factory {
 		$new_fields = array();
 		if (!is_array($fields)) return $new_fields;
 
-		foreach($fields as $field) 
+		foreach($fields as $field)
 			$new_fields[] = static::normalize_field($field);
 
 		return $new_fields;
@@ -121,7 +126,7 @@ class CNP_Meta_Box_Field_Factory {
 		if (!is_array($options)) $options = array();
 		$new_options = array();
 
-		foreach($options as $key => $option) {		
+		foreach($options as $key => $option) {
 			if (!is_array($option)) {
 				if (is_string($key)) $option = array('value' => $key, 'label' => $option);
 				else $option = array('value' => $option);
@@ -148,7 +153,7 @@ class CNP_Meta_Box_Field_Factory {
 
 			//TAXONOMY
 			case 'taxonomy':
-				$selected = wp_get_object_terms($post_id, $field['taxonomy'], array('fields' => 'slugs')); 
+				$selected = wp_get_object_terms($post_id, $field['taxonomy'], array('fields' => 'slugs'));
 				$selected = is_array($selected) && count($selected)
 					? $selected = array_shift($selected)
 					: '';
@@ -163,7 +168,7 @@ class CNP_Meta_Box_Field_Factory {
 				$field['value'] = $post_id > -1
 					? get_post_meta($post_id, $field['id'], true)
 					: get_option($field['id'], '');
-				
+
 				if ('' === $field['value']) $field['value'] = $field['default'];
 				$field['value'] = (int)$field['value'];
 
@@ -187,7 +192,7 @@ class CNP_Meta_Box_Field_Factory {
 		$new_fields = array();
 		if (!is_array($fields)) return $new_fields;
 
-		foreach($fields as $field) 
+		foreach($fields as $field)
 			$new_fields[] = static::apply_field_value($field, $post_id);
 
 		return $new_fields;
@@ -199,7 +204,7 @@ class CNP_Meta_Box_Field_Factory {
 
 	protected static function sanitize_field_value($field) {
 		$value = isset($_POST[$field['id']]) ? $_POST[$field['id']] : '';
-		if ('checkbox' === $field['type']) $value = (bool)$value; 
+		if ('checkbox' === $field['type']) $value = (bool)$value;
 		$field['value'] = $value;
 		return $field;
 	}
@@ -208,7 +213,7 @@ class CNP_Meta_Box_Field_Factory {
 		$new_fields = array();
 		if (!is_array($fields)) return $new_fields;
 
-		foreach($fields as $field) 
+		foreach($fields as $field)
 			$new_fields[] = static::sanitize_field_value($field);
 
 		return $new_fields;
@@ -232,7 +237,7 @@ class CNP_Meta_Box_Field_Factory {
 
 	protected static function display_fields($fields) {
 		$hidden_fields = array();
-		
+
 		echo '<table class="form-table cnp-fields">';
 		foreach($fields as $field) {
 			if ($field['hidden']) {
@@ -270,7 +275,7 @@ class CNP_Meta_Box_Field_Factory {
 					$field['id'],
 					static::field_attributes($field),
 					esc_textarea($field['value']),
-					$field['desc']					
+					$field['desc']
 				);
 			break;
 
@@ -338,7 +343,7 @@ class CNP_Meta_Box_Field_Factory {
 				printf(
 					'%s<span class="description">%s</span>',
 					$options,
-					$field['desc']					
+					$field['desc']
 				);
 			break;
 
@@ -365,10 +370,10 @@ class CNP_Meta_Box_Field_Factory {
 			break;
 
 			//POST SELECT
-			case 'post':
+			case 'post_select':
 				$options = '<option value="">Select One</option>';
 				$options .= implode('', array_map(
-					function($p) use ($field) { 
+					function($p) use ($field) {
 						$pt = get_post_type_object($p->post_type);
 						return sprintf(
 							'<option value="%d" %s>%s</option>',
@@ -383,6 +388,29 @@ class CNP_Meta_Box_Field_Factory {
 					'<select name="%1$s" id="%1$s" %2$s>%3$s</select><br/><span class="description">%4$s</span>',
 					$field['id'],
 					static::field_attributes($field),
+					$options,
+					$field['desc']
+				);
+			break;
+
+			//POST CHECKBOX GROUP
+			case 'post_checkbox_group':
+				$options = implode('', array_map(
+					function($p) use ($field) {
+						$pt = get_post_type_object($p->post_type);
+						return sprintf(
+							'<input type="checkbox" name="%1$s[]" id="%1$s-%2$s" value="%2$s" %3$s /><label for="%1$s-%2$s"> %4$s</label><br/>',
+							//<option value="%d" %s>%s</option>
+							$field['id'],
+							esc_attr($p->ID),
+							is_array($field['value']) && in_array($p->ID, $field['value']) ? 'checked="checked"' : '',
+							sprintf('%s: %s', $pt->labels->singular_name, $p->post_title)
+						);
+					},
+					get_posts($field['query'])
+				));
+				printf(
+					'%s<span class="description">%s</span>',
 					$options,
 					$field['desc']
 				);
@@ -526,12 +554,12 @@ class CNP_Meta_Box_Field_Factory {
 				break;
 
 				case 'taxonomy':
-					wp_set_object_terms($post_id, $field['value'], $field['taxonomy']);  
+					wp_set_object_terms($post_id, $field['value'], $field['taxonomy']);
 				break;
 
 				default:
 					update_post_meta($post_id, $field['id'], $field['value']);
-			}	
+			}
 	}
 
 	public static function save_dashboard_fields($fields) {
@@ -547,5 +575,5 @@ class CNP_Meta_Box_Field_Factory {
 					update_option($field['id'], $field['value']);
 			}
 	}
-	
+
 }
