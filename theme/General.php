@@ -83,8 +83,8 @@ final class CNP_Theme_General {
 
 	public static function google_jquery() {
 		if (!is_admin()) {
-			wp_dequeue_script('jquery');
-			wp_enqueue_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', false, false, true);
+			wp_deregister_script('jquery');
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', false, false, true);
 		}
 	}
 
@@ -144,14 +144,14 @@ final class CNP_Theme_General {
 	 */
 	public static function initialize() {
 		$cls = __CLASS__;
-		add_filter('wp_title',        array($cls, 'wp_title'), 10, 2);
-		add_filter('cnp_description', array($cls, 'description'));
-		add_action('cnp_ready',       array($cls, 'remove_wp_head_actions'));
-		add_action('init',            array($cls, 'google_jquery'));
-		add_filter('body_class',      array($cls, 'body_class'));
-		add_filter('post_class',      array($cls, 'post_class'));
-		add_filter('excerpt_more',    array($cls, 'excerpt_more'));
-		add_filter('excerpt_length',    array($cls, 'excerpt_length'));
+		add_filter('wp_title',        		array($cls, 'wp_title'), 10, 2);
+		add_filter('cnp_description', 		array($cls, 'description'));
+		add_action('cnp_ready',       		array($cls, 'remove_wp_head_actions'));
+		add_action('wp_enqueue_scripts',	array($cls, 'google_jquery'));
+		add_filter('body_class',      		array($cls, 'body_class'));
+		add_filter('post_class',      		array($cls, 'post_class'));
+		add_filter('excerpt_more',    		array($cls, 'excerpt_more'));
+		add_filter('excerpt_length',    	array($cls, 'excerpt_length'));
 	}
 
 }
