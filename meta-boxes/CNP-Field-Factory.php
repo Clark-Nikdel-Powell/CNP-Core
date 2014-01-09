@@ -56,7 +56,7 @@ class CNP_Meta_Box_Field_Factory {
 			'options' => array()
 		),
 
-		//TAXONOMY MULTIPLE SELECT
+		//TAXONOMY SELECT MULTIPLE
 		'taxonomy_multiple' => array(
 			'taxonomy' => '',
 			'attr'     => array(),
@@ -66,6 +66,11 @@ class CNP_Meta_Box_Field_Factory {
 		'taxonomy' => array(
 			'taxonomy' => '',
 			'attr'     => array(),
+		),
+
+		//POST SELECT MULTIPLE
+		'post_multiple' => array(
+			'query' => array()
 		),
 
 		//POST SELECTOR
@@ -358,7 +363,7 @@ class CNP_Meta_Box_Field_Factory {
 				$terms = get_terms($field['taxonomy'], array('get' => 'all'));
 				$options = implode('', array_map(
 					function($o) use ($field) { return sprintf(
-						'<input type="checkbox" name="%1$s[]" id="%1$s-%5$s" value="%5$s" %3$s />'.PHP_EOL.'<label for="%1$s-%5$s"> %4$s</label><br/>'.PHP_EOL,
+						'<li><input type="checkbox" name="%1$s[]" id="%1$s-%5$s" value="%5$s" %3$s />'.PHP_EOL.'<label for="%1$s-%5$s"> %4$s</label></li>'.PHP_EOL,
 						$field['id'],
 						esc_attr($o->slug),
 						is_array($field['value']) && in_array($o->term_id, $field['value']) ? 'checked="checked"' : '',
@@ -391,6 +396,26 @@ class CNP_Meta_Box_Field_Factory {
 					'<select name="%1$s" id="%1$s" %2$s>%3$s</select><br/><span class="description">%4$s</span>',
 					$field['id'],
 					static::field_attributes($field),
+					$options,
+					$field['desc']
+				);
+			break;
+
+			//POST SELECT MULTIPLE
+			case 'post_multiple':
+				$options = implode('', array_map(
+					function($o) use ($field) { return sprintf(
+						'<li><input type="checkbox" name="%1$s[]" id="%1$s-%5$s" value="%5$s" %3$s />'.PHP_EOL.'<label for="%1$s-%5$s"> %4$s</label></li>'.PHP_EOL,
+						$field['id'],
+						esc_attr($o->post_name),
+						is_array($field['value']) && in_array($o->ID, $field['value']) ? 'checked="checked"' : '',
+						esc_attr($o->post_title),
+						esc_attr($o->ID)
+					);},
+					get_posts($field['query'])
+				));
+				printf(
+					'%s<span class="description">%s</span>',
 					$options,
 					$field['desc']
 				);
