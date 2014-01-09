@@ -398,7 +398,11 @@ class CNP_Meta_Box_Field_Factory {
 
 			//POST SELECT
 			case 'post_select':
-				$options = '<option value="">Select One</option>';
+
+				$options = '';
+				if (!isset($field['attr']['multiple']))
+					$options .= '<option value="">Select One</option>';
+
 				$options .= implode('', array_map(
 					function($p) use ($field) {
 						$pt = get_post_type_object($p->post_type);
