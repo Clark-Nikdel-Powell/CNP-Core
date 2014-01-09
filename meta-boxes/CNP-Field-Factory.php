@@ -56,6 +56,12 @@ class CNP_Meta_Box_Field_Factory {
 			'options' => array()
 		),
 
+		//TAXONOMY MULTIPLE SELECT
+		'taxonomy_multiple' => array(
+			'taxonomy' => '',
+			'attr'     => array(),
+		),
+
 		//TAXONOMY SELECT
 		'taxonomy' => array(
 			'taxonomy' => '',
@@ -238,16 +244,16 @@ class CNP_Meta_Box_Field_Factory {
 	protected static function display_fields($fields) {
 		$hidden_fields = array();
 
-		echo '<table class="form-table cnp-fields">';
+		echo '<table class="form-table cnp-fields">'.PHP_EOL;
 		foreach($fields as $field) {
 			if ($field['hidden']) {
 				$hidden_fields[] = $field;
 				continue;
 			}
 			$class = static::field_class($field);
-			echo "<tr class=\"$class\"><th><label for=\"{$field['id']}\">{$field['label']}</label></th><td>";
+			echo "<tr class=\"$class\">".PHP_EOL."<th><label for=\"{$field['id']}\">{$field['label']}</label></th>".PHP_EOL."<td>".PHP_EOL;
 			static::display_field($field);
-			echo "</td></tr>";
+			echo "</td>".PHP_EOL."</tr>".PHP_EOL;
 		}
 		echo '</table>';
 
@@ -339,6 +345,27 @@ class CNP_Meta_Box_Field_Factory {
 						$o['label']
 					);},
 					$field['options']
+				));
+				printf(
+					'%s<span class="description">%s</span>',
+					$options,
+					$field['desc']
+				);
+			break;
+
+			//TAXONOMY SELECT MULTIPLE
+			case 'taxonomy_multiple':
+				$terms = get_terms($field['taxonomy'], array('get' => 'all'));
+				$options = implode('', array_map(
+					function($o) use ($field) { return sprintf(
+						'<input type="checkbox" name="%1$s[]" id="%1$s-%5$s" value="%5$s" %3$s />'.PHP_EOL.'<label for="%1$s-%5$s"> %4$s</label><br/>'.PHP_EOL,
+						$field['id'],
+						esc_attr($o->slug),
+						is_array($field['value']) && in_array($o->term_id, $field['value']) ? 'checked="checked"' : '',
+						esc_attr($o->name),
+						esc_attr($o->term_id)
+					);},
+					$terms
 				));
 				printf(
 					'%s<span class="description">%s</span>',
