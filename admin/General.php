@@ -3,7 +3,7 @@
 class CNP_Admin_General {
 
 	public static function add_favicon() {
-		$favicon_url = get_stylesheet_directory_uri() . '/images/icons/admin-favicon.ico';
+		$favicon_url = get_stylesheet_directory_uri() . '/img/icons/admin-favicon.ico';
 		echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
 	}
 

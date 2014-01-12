@@ -256,7 +256,7 @@ class CNP_Meta_Box_Field_Factory {
 				continue;
 			}
 			$class = static::field_class($field);
-			echo "<tr class=\"$class\">".PHP_EOL."<th><label for=\"{$field['id']}\">{$field['label']}</label></th>".PHP_EOL."<td>".PHP_EOL;
+			echo "<tr class=\"$class\">".PHP_EOL."<th class=\"header\"><label for=\"{$field['id']}\">{$field['label']}</label></th>".PHP_EOL."<td>".PHP_EOL;
 			static::display_field($field);
 			echo "</td>".PHP_EOL."</tr>".PHP_EOL;
 		}
@@ -361,7 +361,9 @@ class CNP_Meta_Box_Field_Factory {
 			//TAXONOMY SELECT MULTIPLE
 			case 'taxonomy_multiple':
 				$terms = get_terms($field['taxonomy'], array('get' => 'all'));
-				$options = implode('', array_map(
+				$options  = '<div class="categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
+				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
 						'<li><input type="checkbox" name="%1$s[]" id="%1$s-%5$s" value="%5$s" %3$s />'.PHP_EOL.'<label for="%1$s-%5$s"> %4$s</label></li>'.PHP_EOL,
 						$field['id'],
@@ -372,6 +374,7 @@ class CNP_Meta_Box_Field_Factory {
 					);},
 					$terms
 				));
+				$options .= '</ul></div></div>';
 				printf(
 					'%s<span class="description">%s</span>',
 					$options,
@@ -403,7 +406,9 @@ class CNP_Meta_Box_Field_Factory {
 
 			//POST SELECT MULTIPLE
 			case 'post_multiple':
-				$options = implode('', array_map(
+				$options  = '<div class="categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
+				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
 						'<li><input type="checkbox" name="%1$s[]" id="%1$s-%5$s" value="%5$s" %3$s />'.PHP_EOL.'<label for="%1$s-%5$s"> %4$s</label></li>'.PHP_EOL,
 						$field['id'],
@@ -414,6 +419,7 @@ class CNP_Meta_Box_Field_Factory {
 					);},
 					get_posts($field['query'])
 				));
+				$options .= '</ul></div></div>';
 				printf(
 					'%s<span class="description">%s</span>',
 					$options,
