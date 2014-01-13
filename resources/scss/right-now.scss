@@ -2,9 +2,9 @@
 
 #cnp-right-now {
 
-	#cnp-right-now-container { 
+	#cnp-right-now-container {
 		display: table;
-		@include clearfix; 
+		@include clearfix;
 	}
 
 	#right-now-details {
@@ -38,8 +38,8 @@
 		padding: 1em;
 	}
 
-	table { 
-		width: 100%; 
+	table {
+		width: 100%;
 		border-spacing: 0;
 	}
 

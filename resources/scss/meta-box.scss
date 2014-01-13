@@ -20,8 +20,8 @@
 	.cnp-field-type-taxonomy select,
 	.cnp-field-type-post select,
 	.cnp-field-type-date input
-	{ 
-		width: 100%; 
+	{
+		width: 100%;
 	}
 
 	.cnp-slider-label
@@ -40,11 +40,34 @@
 		margin-bottom: 1em;
 	}
 
-	.cnp-field-type-textarea textarea 
+	.cnp-field-type-textarea textarea
 	{
-		height: 10em; 
-		resize: vertical; 
+		height: 10em;
+		resize: vertical;
 	}
+	.cnp-categorydiv {
+		ul.category-tabs {
+			margin-top: 12px;
 
+			li.tabs {
+				padding: 3px 5px 5px;
+				background-color: #fdfdfd;
+				border-color: #dfdfdf #dfdfdf #fdfdfd;
+				border-style: solid;
+				border-width: 1px;
+				position: relative;
+			}
+		}
+		div.tabs-panel {
+			min-height: 42px;
+			max-height: 200px;
+			overflow: auto;
+			padding: 0 .9em;
+			border-style: solid;
+			border-width: 1px;
+			border-color: #dfdfdf;
+			background-color: #fdfdfd;
+		}
+	}
 
 }

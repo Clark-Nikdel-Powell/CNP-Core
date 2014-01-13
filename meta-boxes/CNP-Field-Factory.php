@@ -362,7 +362,7 @@ class CNP_Meta_Box_Field_Factory {
 			//TAXONOMY SELECT MULTIPLE
 			case 'taxonomy_multiple':
 				$terms = get_terms($field['taxonomy'], array('get' => 'all'));
-				$options  = '<div class="categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options  = '<div class="cnp-categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
 				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
 				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
@@ -407,7 +407,7 @@ class CNP_Meta_Box_Field_Factory {
 
 			//POST SELECT MULTIPLE
 			case 'post_multiple':
-				$options  = '<div class="categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options  = '<div class="cnp-categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
 				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
 				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
