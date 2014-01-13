@@ -302,7 +302,8 @@ class CNP_Meta_Box_Field_Factory {
 
 			//SELECT DROP DOWN LIST
 			case 'select':
-				$options = implode('', array_map(
+				$options = '<option value="">&nbsp;</option>';
+				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
 						'<option value="%s" %s>%s</option>',
 						esc_attr($o['value']),
