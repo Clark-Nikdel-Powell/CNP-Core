@@ -342,7 +342,9 @@ class CNP_Meta_Box_Field_Factory {
 
 			//CHECKBOX GROUP
 			case 'checkbox_group':
-				$options = implode('', array_map(
+				$options  = '<div class="cnp-categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
+				$options .= implode('', array_map(
 					function($o) use ($field) { return sprintf(
 						'<input type="checkbox" name="%1$s[]" id="%1$s-%2$s" value="%2$s" %3$s /><label for="%1$s-%2$s"> %4$s</label><br/>',
 						$field['id'],
@@ -352,6 +354,7 @@ class CNP_Meta_Box_Field_Factory {
 					);},
 					$field['options']
 				));
+				$options .= '</ul></div></div>';
 				printf(
 					'%s<span class="description">%s</span>',
 					$options,
@@ -458,7 +461,9 @@ class CNP_Meta_Box_Field_Factory {
 
 			//POST CHECKBOX GROUP
 			case 'post_checkbox_group':
-				$options = implode('', array_map(
+				$options  = '<div class="cnp-categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
+				$options .= implode('', array_map(
 					function($p) use ($field) {
 						$pt = get_post_type_object($p->post_type);
 						return sprintf(
@@ -472,6 +477,7 @@ class CNP_Meta_Box_Field_Factory {
 					},
 					get_posts($field['query'])
 				));
+				$options .= '</ul></div></div>';
 				printf(
 					'%s<span class="description">%s</span>',
 					$options,
