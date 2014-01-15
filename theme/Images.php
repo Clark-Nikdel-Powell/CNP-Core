@@ -96,6 +96,8 @@ class CNP_Theme_Images {
 		add_action('cnp_ready', array(__CLASS__, 'add_image_sizes'));
 		add_filter('gallery_style', array(__CLASS__, 'gallery_style'));
 		add_filter('img_caption_shortcode', array(__CLASS__, 'img_caption_shortcode'), 10, 3);
+
+		update_option('image_default_link_type','none'); // remove auto-linking image code
 	}
 
 }
