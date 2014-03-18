@@ -1,3 +1,5 @@
 .DS_Store
 .sass-cache
 sftp-config.json
+
+/resources/codekit-config.json

@@ -37,7 +37,15 @@ class CNP_Admin_General {
 			'jquery-ui-datepicker',
 			'jquery-ui-slider'
 		));
+	}
 
+	public static function setup_additional_settings() {
+		register_setting( 'general', 'phone_number' );
+		add_settings_field('phone_number', 'Phone Number', 'phone_number_callback', 'general');
+
+		function phone_number_callback() { ?>
+			<input class="regular-text" type="text" name="phone_number" value="<?= get_option('phone_number') ?>" />
+		<? } // end phone_number_callback
 	}
 
 	public static function initialize() {
@@ -46,5 +54,6 @@ class CNP_Admin_General {
 		add_filter('admin_footer_text', array(__CLASS__, 'admin_footer_text'), 999);
 		add_action('after_setup_theme', array(__CLASS__, 'hide_upgrade_notices'));
 		add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
+		add_action('admin_init', array(__CLASS__, 'setup_additional_settings'));
 	}
 }
