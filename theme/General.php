@@ -47,9 +47,9 @@ final class CNP_Theme_General {
 		$description = '';
 
 		if (is_singular() && !is_front_page() && !is_home())
-			$description = cnp_excerpt(get_queried_object(), 0, true);
+			$description = strip_tags(cnp_excerpt(get_queried_object(), 0, true));
 
-		if (strlen($description) == 0) 
+		if (strlen($description) == 0)
 			$description = get_bloginfo('description', 'display');
 
 		return $description;
@@ -96,10 +96,10 @@ final class CNP_Theme_General {
 	public static function body_class($classes) {
 		global $wp_query;
 
-		if (is_singular()) 
+		if (is_singular())
 			$classes = static::post_class($classes);
 
-		if (is_tax() || is_category() || is_tag()) 
+		if (is_tax() || is_category() || is_tag())
 			$classes = static::add_term_hierarchy(get_queried_object(), $classes);
 
 		return array_unique($classes);
