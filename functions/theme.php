@@ -23,6 +23,37 @@ function cnp_theme_path($path) {
 }
 
 //-----------------------------------------------------------------------------
+// NAV MENU
+//-----------------------------------------------------------------------------
+
+/**
+ * Display requested nav menu, but strip out <ul>s and <li>s
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ * @param  array  $args      Passed directly to wp_nav_menu
+ */
+function cnp_nav_menu($menu_name='', $args=array()) {
+
+	$defaults = array(
+		'menu'            => $menu_name
+	,	'container'       => 'nav'
+	,	'container_class' => sanitize_title($menu_name)
+	,	'depth'           => 1
+	,	'fallback_cb'     => false
+	,	'items_wrap'      => PHP_EOL.'%3$s'
+	,	'echo'            => false
+	);
+
+	$vars = wp_parse_args($args, $defaults);
+
+	$menu = wp_nav_menu($vars);
+	$find = array('><a','</a>','<li','</li');
+	$replace = array('','','<a','</a');
+
+	echo str_replace($find, $replace, $menu).PHP_EOL;
+
+}
+
+//-----------------------------------------------------------------------------
 // DESCRIPTION/EXCERPT FUNCTIONS
 //-----------------------------------------------------------------------------
 
