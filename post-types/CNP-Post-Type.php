@@ -98,7 +98,7 @@ abstract class CNP_Post_Type {
 			static::$labels['view_item']          = 'View '.static::$labels['singular_name'];
 			static::$labels['parent_item_colon']  = 'Parent '.static::$labels['singular_name'];
 
-			if (static::$labels['plural_name']) {
+			if (isset($labels['plural_name']) && static::$labels['plural_name']) {
 				static::$labels['search_items']       = 'Search '.static::$labels['plural_name'];
 				static::$labels['not_found']          = 'No '.strtolower(static::$labels['plural_name']).' found';
 				static::$labels['not_found_in_trash'] = 'No '.strtolower(static::$labels['plural_name']).' found in Trash';
