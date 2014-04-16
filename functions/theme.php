@@ -23,6 +23,53 @@ function cnp_theme_path($path) {
 }
 
 //-----------------------------------------------------------------------------
+// NAV MENU
+//-----------------------------------------------------------------------------
+
+/**
+ * Convert <li><a></a></li> pattern to <a></a> pattern, transferring all <li> attributes to the <a>
+ * @param  string $s String to manipulate. Duh.
+ * @return string    Manipulated string
+ */
+function lia2a($string) {
+
+	if (!is_string($string))
+		return 'ERROR lia2a(): Not a string (CNP Core, functions/theme.php line 31)';
+
+	$find = array('><a','</a>','<li','</li');
+	$replace = array('','','<a','</a');
+	$return = str_replace($find, $replace, $string);
+
+	return $return;
+
+}
+
+/**
+ * Display requested nav menu, but strip out <ul>s and <li>s
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ * @param  array  $args      Passed directly to wp_nav_menu
+ */
+function cnp_nav_menu($menu_name='', $args=array()) {
+
+	$defaults = array(
+		'menu'            => $menu_name
+	,	'container'       => 'nav'
+	,	'container_class' => sanitize_title($menu_name)
+	,	'depth'           => 1
+	,	'fallback_cb'     => false
+	,	'items_wrap'      => PHP_EOL.'%3$s'
+	,	'echo'            => false
+	);
+	$vars = wp_parse_args($args, $defaults);
+
+	$menu = wp_nav_menu($vars);
+	$menu = lia2a($menu);
+
+	echo $menu.PHP_EOL;
+
+}
+
+//-----------------------------------------------------------------------------
 // DESCRIPTION/EXCERPT FUNCTIONS
 //-----------------------------------------------------------------------------
 
