@@ -12,7 +12,7 @@ class CNP_Admin_Menu {
 		$media_item = null;
 		$new_key = 58;
 		foreach($menu as $key => $menu_item) {
-			if (is_array($menu_item) 
+			if (is_array($menu_item)
 				&& array_key_exists(0, $menu_item)
 				&& 'Media' === $menu_item[0]
 			) {
@@ -40,12 +40,12 @@ class CNP_Admin_Menu {
 	protected static $admin_only_pages = array(
 		'plugins.php',
 		'tools.php',
-		'options-general.php',
-		'themes.php'
+		'options-general.php'
 	);
 
 	protected static $submenu_pages_to_remove = array(
 		'themes.php' => array(
+			'customize.php',
 			'theme-editor.php'
 		),
 		'plugins.php' => array(
@@ -56,6 +56,10 @@ class CNP_Admin_Menu {
 	protected static $admin_only_subpages = array(
 		'index.php' => array(
 			'update-core.php'
+		),
+		'themes.php' => array(
+			'themes.php',
+			'customize.php'
 		)
 	);
 
@@ -69,8 +73,8 @@ class CNP_Admin_Menu {
 		$is_admin = in_array('administrator', wp_get_current_user()->roles);
 		if (!$is_admin) {
 			if (is_array($admin_only_pages))
-				$menu_pages_to_remove = is_array($menu_pages_to_remove) 
-					? array_merge($menu_pages_to_remove, $admin_only_pages) 
+				$menu_pages_to_remove = is_array($menu_pages_to_remove)
+					? array_merge($menu_pages_to_remove, $admin_only_pages)
 					: $admin_only_pages;
 
 			if (is_array($admin_only_subpages))
