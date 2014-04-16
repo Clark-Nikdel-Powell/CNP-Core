@@ -23,7 +23,7 @@ function cnp_theme_path($path) {
 }
 
 //-----------------------------------------------------------------------------
-// NAV MENU
+// MENUS
 //-----------------------------------------------------------------------------
 
 /**
@@ -66,6 +66,66 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 	$menu = lia2a($menu);
 
 	echo $menu.PHP_EOL;
+
+}
+
+/**
+ * Build contextually aware section navigation
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ * @param  array  $args      Passed directly to wp_nav_menu
+ */
+function cnp_subnav($options=array()) {
+
+	$list_options = array(
+		'title_li'         => 0
+	,	'show_option_none' => 0
+	, 'echo'             => 0
+	);
+
+	$before = '<nav class="section"><h2>In This Section</h2><ul>'.PHP_EOL;
+	$after = '</ul></nav>'.PHP_EOL;
+
+	// Taxonomy archives
+	// Includes categories, tags, custom taxonomies
+	// Does not include date archives
+	if (is_tax()) {
+
+		$query_obj = get_queried_object();
+		$list_options['taxonomy'] = $query_obj->taxonomy;
+		$list = wp_list_categories($list_options);
+
+	}
+
+	// Post types
+	else {
+		global $post;
+
+		// Hierarchical post types show sub post lists
+		if (is_post_type_hierarchical($post->post_type)) {
+
+			$list_options['post_type'] = $post->post_type;
+			if ($post->post_type == 'page') {
+				$ancestor = highest_ancestor();
+				$list_options['child_of'] = $ancestor['id'];
+			}
+			$list = wp_list_pages($list_options);
+
+		}
+
+		// Non-hierarchical post types show specified taxonomy lists
+		else {
+
+			$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
+			$list = wp_list_categories($list_options);
+
+		}
+	}
+
+	// If there's no text inside the tags, the list is empty
+	if (!strip_tags($list))
+		return false;
+
+	return $before.$list.$after;
 
 }
 
