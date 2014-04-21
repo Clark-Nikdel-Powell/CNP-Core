@@ -76,6 +76,9 @@ function cnp_nav_menu($menu_name='', $args=array()) {
  */
 function cnp_subnav($options=array()) {
 
+	if (is_search() || is_404())
+		return false;
+
 	$list_options = array(
 		'title_li'         => 0
 	,	'show_option_none' => 0
