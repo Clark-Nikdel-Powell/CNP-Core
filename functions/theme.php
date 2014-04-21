@@ -118,7 +118,9 @@ function cnp_subnav($options=array()) {
 		// Non-hierarchical post types show specified taxonomy lists
 		else {
 
-			$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
+			if (isset($options['list_options']))
+				$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
+
 			$list = wp_list_categories($list_options);
 
 		}
