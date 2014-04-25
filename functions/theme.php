@@ -401,7 +401,7 @@ function pagination($prev='&larr; Previous', $next='Next &rarr;') {
 
 	$links = paginate_links($pagination);
 	echo $links
-		? '<p id="pagination">'.$links.'</p>'
+		? '<p class="pagination">'.$links.'</p>'
 		: '';
 
 }
