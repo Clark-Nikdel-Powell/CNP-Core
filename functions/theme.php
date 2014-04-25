@@ -87,6 +87,7 @@ function cnp_subnav($options=array()) {
 
 	$before = '<nav class="section"><h2>In This Section</h2><ul>'.PHP_EOL;
 	$after = '</ul></nav>'.PHP_EOL;
+	$list = '';
 
 	// Taxonomy archives
 	// Includes categories, tags, custom taxonomies
@@ -103,25 +104,30 @@ function cnp_subnav($options=array()) {
 	else {
 		global $post;
 
-		// Hierarchical post types show sub post lists
-		if (is_post_type_hierarchical($post->post_type)) {
+		// Only if we have a post
+		if ($post) {
 
-			$list_options['post_type'] = $post->post_type;
-			if ($post->post_type == 'page') {
-				$ancestor = highest_ancestor();
-				$list_options['child_of'] = $ancestor['id'];
+			// Hierarchical post types show sub post lists
+			if (is_post_type_hierarchical($post->post_type)) {
+
+				$list_options['post_type'] = $post->post_type;
+				if ($post->post_type == 'page') {
+					$ancestor = highest_ancestor();
+					$list_options['child_of'] = $ancestor['id'];
+				}
+				$list = wp_list_pages($list_options);
+
 			}
-			$list = wp_list_pages($list_options);
 
-		}
+			// Non-hierarchical post types show specified taxonomy lists
+			else {
 
-		// Non-hierarchical post types show specified taxonomy lists
-		else {
+				if (isset($options['list_options']))
+					$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
 
-			if (isset($options['list_options']))
-				$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
+				$list = wp_list_categories($list_options);
 
-			$list = wp_list_categories($list_options);
+			}
 
 		}
 	}
@@ -135,7 +141,7 @@ function cnp_subnav($options=array()) {
 }
 
 //-----------------------------------------------------------------------------
-// DESCRIPTION/EXCERPT FUNCTIONS
+// DESCRIPTION / EXCERPT FUNCTIONS
 //-----------------------------------------------------------------------------
 
 /**
