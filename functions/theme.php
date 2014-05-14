@@ -288,13 +288,31 @@ function highest_ancestor($args=0) {
 	$vars = wp_parse_args($args, $defaults);
 	$posttype = get_post_type();
 
-	if ( is_home() ) :
+	if ( is_front_page() ) :
 
 		$ancestor = array(
-			'id'   => 0
+			'id'   => (get_option("page_on_front") ? get_option("page_on_front") : 0)
 		,	'slug' => 'home'
 		,	'name' => 'Home'
 		);
+
+	elseif ( is_home() || is_singular('post') ) :
+
+		$home = get_post(get_option("page_for_posts"));
+
+		if (!isset($home)) {
+			$ancestor = array(
+				'id'   => 0
+			,	'slug' => 'blog'
+			,	'name' => 'Blog'
+			);
+		} else {
+			$ancestor = array(
+				'id'   => $home->ID
+			,	'slug' => $home->post_name
+			,	'name' => $home->post_title
+			);
+		}
 
 	elseif ( is_tax() ) :
 
