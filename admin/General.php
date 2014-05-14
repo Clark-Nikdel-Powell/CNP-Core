@@ -40,11 +40,24 @@ class CNP_Admin_General {
 	}
 
 	public static function setup_additional_settings() {
+		register_setting( 'general', 'company_name' );
 		register_setting( 'general', 'phone_number' );
+		register_setting( 'general', 'street_address' );
+
+		add_settings_field('company_name', 'Company Name', 'company_name_callback', 'general');
 		add_settings_field('phone_number', 'Phone Number', 'phone_number_callback', 'general');
+		add_settings_field('street_address', 'Street Address', 'street_address_callback', 'general');
+
+		function company_name_callback() { ?>
+			<input class="regular-text" type="text" name="company_name" value="<?= get_option('company_name') ?>" />
+		<? } // end phone_number_callback
 
 		function phone_number_callback() { ?>
 			<input class="regular-text" type="text" name="phone_number" value="<?= get_option('phone_number') ?>" />
+		<? } // end phone_number_callback
+
+		function street_address_callback() { ?>
+			<input class="regular-text" type="text" name="street_address" value="<?= get_option('street_address') ?>" />
 		<? } // end phone_number_callback
 	}
 
