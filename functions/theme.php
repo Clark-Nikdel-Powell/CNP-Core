@@ -23,6 +23,26 @@ function cnp_theme_path($path) {
 }
 
 //-----------------------------------------------------------------------------
+// STRINGS
+//-----------------------------------------------------------------------------
+
+/**
+ * Take an icon name and return inline SVG for the icon.
+ * @param  string $icon_name The ID of the icon in the defs list of the SVG file.
+ * @return string $echo      To output, or not to output.
+ */
+function cnp_isvg($icon_name, $echo=true) {
+	$icon = '<svg class="icon '. $icon_name .'" viewBox="0 0 32 32"><use xlink:href="#'. $icon_name .'"></use></svg>';
+
+	if ( $echo == true ) {
+		echo $icon;
+	} else {
+		return $icon;
+	}
+}
+
+
+//-----------------------------------------------------------------------------
 // MENUS
 //-----------------------------------------------------------------------------
 
@@ -70,6 +90,48 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 }
 
 /**
+ * Display requested nav menu, and add menu icons via inline svg
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ */
+function cnp_svg_nav_menu($menu_name, $args=array()) {
+
+	$ancestor = highest_ancestor();
+
+	$defaults = array(
+		'menu'            => $menu_name
+	,	'container_class' => sanitize_title($menu_name)
+	);
+	$vars = wp_parse_args($args, $defaults);
+
+	$items = wp_get_nav_menu_items($vars['menu']);
+
+	if ( !empty($items) ) {
+
+		$output = '<nav class="'. $vars['container_class'] .'">';
+
+		foreach ($items as $key => $item) {
+			$class = '';
+			if ( $ancestor['id'] == $item->object_id )
+				$class = 'current-menu-item';
+
+			$target = '';
+			if ( isset($item->target) )
+				$target = 'target='.$item->target;
+
+			$output .= '<a class="'. $class .'" href="'. $item->url .'" '. $target .'>';
+			( !empty($item->classes) ? $output .= cnp_isvg($item->classes[0], false) : '');
+			$output .= '<span class="title">'. $item->title .'</span>';
+			$output .= '</a>';
+		}
+
+		$output .= '</nav>';
+
+		echo $output.PHP_EOL;
+	}
+}
+
+
+/**
  * Build contextually aware section navigation
  * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
  * @param  array  $args      Passed directly to wp_nav_menu
@@ -82,7 +144,7 @@ function cnp_subnav($options=array()) {
 	$list_options = array(
 		'title_li'         => 0
 	,	'show_option_none' => 0
-	, 'echo'             => 0
+	,   'echo'             => 0
 	);
 
 	$before = '<nav class="section"><h2>In This Section</h2><ul>'.PHP_EOL;
