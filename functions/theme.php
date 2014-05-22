@@ -100,6 +100,7 @@ function cnp_svg_nav_menu($menu_name, $args=array()) {
 	$defaults = array(
 		'menu'            => $menu_name
 	,	'container_class' => sanitize_title($menu_name)
+	,   'before_items'    => ''
 	);
 	$vars = wp_parse_args($args, $defaults);
 
@@ -108,6 +109,7 @@ function cnp_svg_nav_menu($menu_name, $args=array()) {
 	if ( !empty($items) ) {
 
 		$output = '<nav class="'. $vars['container_class'] .'">';
+		(isset($vars['before_items']) ? $output .= $vars['before_items'] : '');
 
 		foreach ($items as $key => $item) {
 			$class = '';
