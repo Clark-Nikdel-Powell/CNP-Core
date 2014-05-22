@@ -42,10 +42,12 @@ class CNP_Admin_General {
 	public static function setup_additional_settings() {
 		register_setting( 'general', 'company_name' );
 		register_setting( 'general', 'phone_number' );
+		register_setting( 'general', 'fax_number' );
 		register_setting( 'general', 'street_address' );
 
 		add_settings_field('company_name', 'Company Name', 'company_name_callback', 'general');
 		add_settings_field('phone_number', 'Phone Number', 'phone_number_callback', 'general');
+		add_settings_field('fax_number', 'Fax Number', 'fax_number_callback', 'general');
 		add_settings_field('street_address', 'Street Address', 'street_address_callback', 'general');
 
 		function company_name_callback() { ?>
@@ -55,6 +57,10 @@ class CNP_Admin_General {
 		function phone_number_callback() { ?>
 			<input class="regular-text" type="text" name="phone_number" value="<?= get_option('phone_number') ?>" />
 		<? } // end phone_number_callback
+
+		function fax_number_callback() { ?>
+			<input class="regular-text" type="text" name="fax_number" value="<?= get_option('fax_number') ?>" />
+		<? } // end fax_number_callback
 
 		function street_address_callback() { ?>
 			<input class="regular-text" type="text" name="street_address" value="<?= get_option('street_address') ?>" />
