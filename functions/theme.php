@@ -143,13 +143,19 @@ function cnp_subnav($options=array()) {
 	if (is_search() || is_404())
 		return false;
 
+	$defaults = array(
+		'header'	=> '<h2 class="title">In this Section</h2>'
+	);
+
+	$vars = wp_parse_args( $options, $defaults );
+
 	$list_options = array(
 		'title_li'         => 0
 	,	'show_option_none' => 0
 	,   'echo'             => 0
 	);
 
-	$before = '<nav class="section"><h2>In This Section</h2><ul>'.PHP_EOL;
+	$before = '<nav class="section">'. $vars['header'] .'<ul>'.PHP_EOL;
 	$after = '</ul></nav>'.PHP_EOL;
 	$list = '';
 
