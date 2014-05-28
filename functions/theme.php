@@ -29,10 +29,11 @@ function cnp_theme_path($path) {
 /**
  * Take an icon name and return inline SVG for the icon.
  * @param  string $icon_name The ID of the icon in the defs list of the SVG file.
- * @return string $echo      To output, or not to output.
+ * @param  string $viewbox   Optional viewbox size.
+ * @param  string $echo      To output, or not to output.
  */
-function cnp_isvg($icon_name, $echo=true) {
-	$icon = '<svg class="icon '. $icon_name .'" viewBox="0 0 32 32"><use xlink:href="#'. $icon_name .'"></use></svg>';
+function cnp_isvg($icon_name, $viewbox='0 0 32 32', $echo=true) {
+	$icon = '<svg class="icon '. $icon_name .'" viewBox="'. $viewbox .'"><use xlink:href="#'. $icon_name .'"></use></svg>';
 
 	if ( $echo == true ) {
 		echo $icon;
@@ -121,7 +122,7 @@ function cnp_svg_nav_menu($menu_name, $args=array()) {
 				$target = 'target='.$item->target;
 
 			$output .= '<a class="'. $class .'" href="'. $item->url .'" '. $target .'>';
-			( !empty($item->classes) ? $output .= cnp_isvg($item->classes[0], false) : '');
+			( !empty($item->classes) ? $output .= cnp_isvg($item->classes[0], '0 0 32 32', false) : '');
 			$output .= '<span class="title">'. $item->title .'</span>';
 			$output .= '</a>';
 		}
