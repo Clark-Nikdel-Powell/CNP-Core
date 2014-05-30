@@ -77,6 +77,20 @@ function cnp_human_timing ($time, $cutoff=2) {
 
 }
 
+/**
+ * Get a file's extension
+ * @param 	string 	$file	the filename, as a string
+ */
+function cnp_getExt($file) {
+	if (is_string($file)) {
+		$arr = explode('.',$file);
+		end($arr);
+		$ext = current($arr);
+		return $ext;
+	}
+	return false;
+}
+
 
 //-----------------------------------------------------------------------------
 // MENUS
