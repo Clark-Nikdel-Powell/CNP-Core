@@ -165,9 +165,9 @@ function cnp_svg_nav_menu($menu_name, $args=array()) {
 		(isset($vars['before_items']) ? $output .= $vars['before_items'] : '');
 
 		foreach ($items as $key => $item) {
-			$class = '';
+			$class = implode(' ', $item->classes);
 			if ( $ancestor['id'] == $item->object_id )
-				$class = 'current-menu-item';
+				$class .= ' current-menu-item';
 
 			$target = '';
 			if ( isset($item->target) )
