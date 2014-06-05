@@ -134,6 +134,9 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 
 	$menu = wp_nav_menu($vars);
 	$menu = lia2a($menu);
+	$menu = trim($menu);
+	$menu = str_replace("\r", "", $menu);
+	$menu = str_replace("\n", "", $menu);
 
 	echo $menu.PHP_EOL;
 
