@@ -23,8 +23,96 @@ function cnp_theme_path($path) {
 }
 
 //-----------------------------------------------------------------------------
-// NAV MENU
+// STRINGS
 //-----------------------------------------------------------------------------
+
+/**
+ * Take an icon name and return inline SVG for the icon.
+ * @param  string $icon_name The ID of the icon in the defs list of the SVG file.
+ * @param  string $viewbox   Optional viewbox size.
+ * @param  string $echo      To output, or not to output. Set to 0 if using URL-query.
+ */
+function cnp_isvg($args) {
+
+	$defaults = array(
+		'icon-name'	=> ''
+	,	'viewbox' 	=> '0 0 32 32'
+	,	'echo'		=> true
+	);
+
+	$vars = wp_parse_args( $args, $defaults );
+	$icon = '<svg class="icon '. $vars['icon-name'] .'" viewBox="'. $vars['viewbox'] .'"><use xlink:href="#'. $vars['icon-name'] .'"></use></svg>';
+
+	if ( $vars['echo'] == true ) {
+		echo $icon;
+	} else {
+		return $icon;
+	}
+}
+
+/**
+ * Take a timestamp and turn it in to human timing.
+ * @param  timestamp $time      To output, or not to output. Set to 0 if using URL-query.
+ */
+function cnp_human_timing ($time, $cutoff=2) {
+
+	$current_time = current_time('timestamp');
+    $time = $current_time - $time; // to get the time since that moment
+
+    $tokens = array (
+        31536000 => 'year',
+        2592000 => 'month',
+        604800 => 'week',
+        86400 => 'day',
+        3600 => 'hour',
+        60 => 'minute',
+        1 => 'second'
+    );
+
+    foreach ($tokens as $unit => $text) {
+        if ($time < $unit) continue;
+        $numberOfUnits = floor($time / $unit);
+        return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
+    }
+
+}
+
+/**
+ * Get a file's extension
+ * @param 	string 	$file	the filename, as a string
+ */
+function cnp_getExt($file) {
+	if (is_string($file)) {
+		$arr = explode('.',$file);
+		end($arr);
+		$ext = current($arr);
+		return $ext;
+	}
+	return false;
+}
+
+
+//-----------------------------------------------------------------------------
+// MENUS
+//-----------------------------------------------------------------------------
+
+/**
+ * Convert <li><a></a></li> pattern to <a></a> pattern, transferring all <li> attributes to the <a>
+ * @param  string $s String to manipulate. Duh.
+ * @return string    Manipulated string
+ */
+function lia2a($string) {
+
+	if (!is_string($string))
+		return 'ERROR lia2a(): Not a string (CNP Core, functions/theme.php line 31)';
+
+	$find = array('><a','</a>','<li','</li');
+	$replace = array('','','<a','</a');
+	$return = str_replace($find, $replace, $string);
+
+	return $return;
+
+}
 
 /**
  * Display requested nav menu, but strip out <ul>s and <li>s
@@ -42,19 +130,142 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 	,	'items_wrap'      => PHP_EOL.'%3$s'
 	,	'echo'            => false
 	);
-
 	$vars = wp_parse_args($args, $defaults);
 
 	$menu = wp_nav_menu($vars);
-	$find = array('><a','</a>','<li','</li');
-	$replace = array('','','<a','</a');
+	$menu = lia2a($menu);
+	$menu = trim($menu);
+	$menu = str_replace("\r", "", $menu);
+	$menu = str_replace("\n", "", $menu);
 
-	echo str_replace($find, $replace, $menu).PHP_EOL;
+	echo $menu.PHP_EOL;
+
+}
+
+/**
+ * Display requested nav menu, and add menu icons via inline svg
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ */
+function cnp_svg_nav_menu($menu_name, $args=array()) {
+
+	$ancestor = highest_ancestor();
+
+	$defaults = array(
+		'menu'            => $menu_name
+	,	'container_class' => sanitize_title($menu_name)
+	,   'before_items'    => ''
+	);
+	$vars = wp_parse_args($args, $defaults);
+
+	$items = wp_get_nav_menu_items($vars['menu']);
+
+	if ( !empty($items) ) {
+
+		$output = '<nav class="'. $vars['container_class'] .'">';
+		(isset($vars['before_items']) ? $output .= $vars['before_items'] : '');
+
+		foreach ($items as $key => $item) {
+			$class = implode(' ', $item->classes);
+			if ( $ancestor['id'] == $item->object_id )
+				$class .= ' current-menu-item';
+
+			$target = '';
+			if ( isset($item->target) )
+				$target = 'target='.$item->target;
+
+			$output .= '<a class="'. $class .'" href="'. $item->url .'" '. $target .'>';
+			$args = array('echo'=>false);
+			( !empty($item->classes) ? $output .= cnp_isvg('icon-name='. $item->classes[0] .'&echo=0') : '');
+			$output .= '<span class="title">'. $item->title .'</span>';
+			$output .= '</a>';
+		}
+
+		$output .= '</nav>';
+
+		echo $output.PHP_EOL;
+	}
+}
+
+
+/**
+ * Build contextually aware section navigation
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ * @param  array  $args      Passed directly to wp_nav_menu
+ */
+function cnp_subnav($options=array()) {
+
+	if (is_search() || is_404())
+		return false;
+
+	$defaults = array(
+		'header'	=> '<h2 class="title">In this Section</h2>'
+	);
+
+	$vars = wp_parse_args( $options, $defaults );
+
+	$list_options = array(
+		'title_li'         => 0
+	,	'show_option_none' => 0
+	,   'echo'             => 0
+	);
+
+	$before = '<nav class="section">'. $vars['header'] .'<ul>'.PHP_EOL;
+	$after = '</ul></nav>'.PHP_EOL;
+	$list = '';
+
+	// Taxonomy archives
+	// Includes categories, tags, custom taxonomies
+	// Does not include date archives
+	if (is_tax()) {
+
+		$query_obj = get_queried_object();
+		$list_options['taxonomy'] = $query_obj->taxonomy;
+		$list = wp_list_categories($list_options);
+
+	}
+
+	// Post types
+	else {
+		global $post;
+
+		// Only if we have a post
+		if ($post) {
+
+			// Hierarchical post types show sub post lists
+			if (is_post_type_hierarchical($post->post_type)) {
+
+				$list_options['post_type'] = $post->post_type;
+				if ($post->post_type == 'page') {
+					$ancestor = highest_ancestor();
+					$list_options['child_of'] = $ancestor['id'];
+				}
+				$list = wp_list_pages($list_options);
+
+			}
+
+			// Non-hierarchical post types show specified taxonomy lists
+			else {
+
+				if (isset($options['list_options']))
+					$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
+
+				$list = wp_list_categories($list_options);
+
+			}
+
+		}
+	}
+
+	// If there's no text inside the tags, the list is empty
+	if (!strip_tags($list))
+		return false;
+
+	return $before.$list.$after;
 
 }
 
 //-----------------------------------------------------------------------------
-// DESCRIPTION/EXCERPT FUNCTIONS
+// DESCRIPTION / EXCERPT FUNCTIONS
 //-----------------------------------------------------------------------------
 
 /**
@@ -201,13 +412,31 @@ function highest_ancestor($args=0) {
 	$vars = wp_parse_args($args, $defaults);
 	$posttype = get_post_type();
 
-	if ( is_home() ) :
+	if ( is_front_page() ) :
 
 		$ancestor = array(
-			'id'   => 0
+			'id'   => (get_option("page_on_front") ? get_option("page_on_front") : 0)
 		,	'slug' => 'home'
 		,	'name' => 'Home'
 		);
+
+	elseif ( is_home() || is_singular('post') ) :
+
+		$home = get_post(get_option("page_for_posts"));
+
+		if (!isset($home)) {
+			$ancestor = array(
+				'id'   => 0
+			,	'slug' => 'blog'
+			,	'name' => 'Blog'
+			);
+		} else {
+			$ancestor = array(
+				'id'   => $home->ID
+			,	'slug' => $home->post_name
+			,	'name' => $home->post_title
+			);
+		}
 
 	elseif ( is_tax() ) :
 
@@ -320,7 +549,7 @@ function pagination($prev='&larr; Previous', $next='Next &rarr;') {
 
 	$links = paginate_links($pagination);
 	echo $links
-		? '<p id="pagination">'.$links.'</p>'
+		? '<p class="pagination">'.$links.'</p>'
 		: '';
 
 }
