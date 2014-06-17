@@ -143,6 +143,50 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 }
 
 /**
+ * Display requested nav menu, and add menu icons via Font Awesome
+ * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
+ */
+function cnp_fa_nav_menu($menu_name, $args=array()) {
+
+	$ancestor = highest_ancestor();
+
+	$defaults = array(
+		'menu'            => $menu_name
+	,	'container_class' => sanitize_title($menu_name)
+	,   'before_items'    => ''
+	);
+	$vars = wp_parse_args($args, $defaults);
+
+	$items = wp_get_nav_menu_items($vars['menu']);
+
+	if ( !empty($items) ) {
+
+		$output = '<nav class="'. $vars['container_class'] .'">';
+		(isset($vars['before_items']) ? $output .= $vars['before_items'] : '');
+
+		foreach ($items as $key => $item) {
+			$class = implode(' ', $item->classes);
+			if ( $ancestor['id'] == $item->object_id )
+				$class .= ' current-menu-item';
+
+			$target = '';
+			if ( !empty($item->target) )
+				$target = 'target='.$item->target;
+
+			$output .= '<a class="'. $class .'" href="'. $item->url .'" '. $target .'>';
+			//$args = array('echo'=>false);
+			//( !empty($item->classes) ? $output .= '<i class="'. implode(" ", $item->classes) .'"></i>' : '');
+			$output .= '<span class="title">'. $item->title .'</span>';
+			$output .= '</a>';
+		}
+
+		$output .= '</nav>';
+
+		echo $output.PHP_EOL;
+	}
+}
+
+/**
  * Display requested nav menu, and add menu icons via inline svg
  * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
  */
@@ -170,7 +214,7 @@ function cnp_svg_nav_menu($menu_name, $args=array()) {
 				$class .= ' current-menu-item';
 
 			$target = '';
-			if ( isset($item->target) )
+			if ( !empty($item->target) )
 				$target = 'target='.$item->target;
 
 			$output .= '<a class="'. $class .'" href="'. $item->url .'" '. $target .'>';
