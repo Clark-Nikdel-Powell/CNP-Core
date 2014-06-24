@@ -104,7 +104,7 @@ function cnp_getExt($file) {
 function lia2a($string) {
 
 	if (!is_string($string))
-		return 'ERROR lia2a(): Not a string (CNP Core, functions/theme.php line 31)';
+		return 'ERROR lia2a(): Not a string (CNP Core, functions/theme.php)';
 
 	$find = array('><a','</a>','<li','</li');
 	$replace = array('','','<a','</a');
