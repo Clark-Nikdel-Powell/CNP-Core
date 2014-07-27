@@ -187,6 +187,14 @@ class CNP_Meta_Box_Field_Factory {
 				if ($field['value'] > $field['max']) $field['value'] = $field['max'];
 			break;
 
+			case 'post_multiple':
+				$field['value'] = $post_id > -1
+					? get_post_meta($post_id, $field['id'])
+					: get_option($field['id'], '');
+
+				if ('' === $field['value']) $field['value'] = $field['default'];
+			break;
+
 			//JUST GET POST META OR BLOG OPTION
 			default:
 				$field['value'] = $post_id > -1
@@ -624,6 +632,15 @@ class CNP_Meta_Box_Field_Factory {
 
 				case 'taxonomy':
 					wp_set_object_terms($post_id, $field['value'], $field['taxonomy']);
+				break;
+
+				case 'post_multiple':
+					delete_post_meta($post_id, $field['id']);
+
+					foreach ($field['value'] as $value) {
+						add_post_meta($post_id, $field['id'], $value);
+					}
+					
 				break;
 
 				default:
