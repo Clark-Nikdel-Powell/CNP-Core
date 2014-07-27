@@ -41,8 +41,7 @@ function cnp_isvg($args) {
 	);
 
 	$vars = wp_parse_args( $args, $defaults );
-	$icon = '<svg class="icon '. $vars['icon-name'] .'" viewBox="'. $vars['viewbox'] .'"><use xlink:href="#'. $vars['icon-name'] .'"></use></svg>';
-
+	$icon = '<svg role="img" title="'. $vars['icon-name'] .'" class="icon '. $vars['icon-name'] .'" viewBox="'. $vars['viewbox'] .'"><use xlink:href="'. cnp_theme_url('/img/icons.svg') .'#'. $vars['icon-name'] .'"></use></svg>';
 	if ( $vars['echo'] == true ) {
 		echo $icon;
 	} else {
