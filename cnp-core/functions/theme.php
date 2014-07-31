@@ -151,16 +151,21 @@ function cnp_fa_nav_menu($menu_name, $args=array()) {
 
 	$defaults = array(
 		'menu'            => $menu_name
+	,	'container'       => 'nav'
 	,	'container_class' => sanitize_title($menu_name)
 	,   'before_items'    => ''
+	,	'echo'            => true
 	);
 	$vars = wp_parse_args($args, $defaults);
 
 	$items = wp_get_nav_menu_items($vars['menu']);
 
 	if ( !empty($items) ) {
+		
+		$output = '';
 
-		$output = '<nav class="'. $vars['container_class'] .'">';
+		($vars['container'] != '' ? $output .= '<'.$vars['container'].' class="'. $vars['container_class'] .'">' : '');
+		
 		(isset($vars['before_items']) ? $output .= $vars['before_items'] : '');
 
 		foreach ($items as $key => $item) {
@@ -179,9 +184,14 @@ function cnp_fa_nav_menu($menu_name, $args=array()) {
 			$output .= '</a>';
 		}
 
-		$output .= '</nav>';
+		($vars['container'] != '' ? $output .= '</'.$vars['container'].'>' : '' );
 
-		echo $output.PHP_EOL;
+		if ( $vars['echo'] ) {
+			echo $output.PHP_EOL;
+		} else {
+			return $output;
+		}
+
 	}
 }
 
