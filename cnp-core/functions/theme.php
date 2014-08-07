@@ -38,10 +38,11 @@ function cnp_isvg($args) {
 		'icon-name'	=> ''
 	,	'viewbox' 	=> '0 0 32 32'
 	,	'echo'		=> true
+	,	'path'      => cnp_theme_url('/img/icons.svg')
 	);
 
 	$vars = wp_parse_args( $args, $defaults );
-	$icon = '<svg role="img" title="'. $vars['icon-name'] .'" class="icon '. $vars['icon-name'] .'" viewBox="'. $vars['viewbox'] .'"><use xlink:href="'. cnp_theme_url('/img/icons.svg') .'#'. $vars['icon-name'] .'"></use></svg>';
+	$icon = '<svg role="img" title="'. $vars['icon-name'] .'" class="icon '. $vars['icon-name'] .'" viewBox="'. $vars['viewbox'] .'"><use xlink:href="'. $vars['path'] .'#'. $vars['icon-name'] .'"></use></svg>';
 	if ( $vars['echo'] == true ) {
 		echo $icon;
 	} else {
@@ -161,11 +162,11 @@ function cnp_fa_nav_menu($menu_name, $args=array()) {
 	$items = wp_get_nav_menu_items($vars['menu']);
 
 	if ( !empty($items) ) {
-		
+
 		$output = '';
 
 		($vars['container'] != '' ? $output .= '<'.$vars['container'].' class="'. $vars['container_class'] .'">' : '');
-		
+
 		(isset($vars['before_items']) ? $output .= $vars['before_items'] : '');
 
 		foreach ($items as $key => $item) {
