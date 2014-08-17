@@ -273,6 +273,10 @@ function cnp_subnav($options=array()) {
 	if (is_tax()) {
 
 		$query_obj = get_queried_object();
+
+		if (isset($options['list_options'][$query_obj->taxonomy]))
+			$list_options = wp_parse_args($options['list_options'][$query_obj->taxonomy], $list_options);
+
 		$list_options['taxonomy'] = $query_obj->taxonomy;
 		$list = wp_list_categories($list_options);
 
@@ -300,7 +304,7 @@ function cnp_subnav($options=array()) {
 			// Non-hierarchical post types show specified taxonomy lists
 			else {
 
-				if (isset($options['list_options']))
+				if (isset($options['list_options'][$post->post_type]))
 					$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
 
 				$list = wp_list_categories($list_options);
