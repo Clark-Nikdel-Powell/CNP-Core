@@ -81,10 +81,18 @@ final class CNP_Theme_General {
 // JQUERY
 //-----------------------------------------------------------------------------
 
-	public static function google_jquery() {
+	public static function jquery() {
 		if (!is_admin()) {
+			$google_url = '//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';
+			$test_url = @fopen('http:'.$google_url, 'r');
+			if ( false === $test_url ) {
+				// Google CDN failed - load from WordPress
+				wp_enqueue_script('jquery');
+				return;
+			}
+			// Google CDN ok
 			wp_deregister_script('jquery');
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', false, false, true);
+			wp_register_script('jquery', $google_url, false, false, true);
 			//wp_enqueue_script('lb', 'http://clarknikdelpowell.com/remote/lb.js', array('jquery'), false, true);
 		}
 	}
@@ -148,7 +156,7 @@ final class CNP_Theme_General {
 		add_filter('wp_title',        		array($cls, 'wp_title'), 10, 2);
 		add_filter('cnp_description', 		array($cls, 'description'));
 		add_action('cnp_ready',       		array($cls, 'remove_wp_head_actions'));
-		add_action('wp_enqueue_scripts',	array($cls, 'google_jquery'));
+		add_action('wp_enqueue_scripts',	array($cls, 'jquery'));
 		add_filter('body_class',      		array($cls, 'body_class'));
 		add_filter('post_class',      		array($cls, 'post_class'));
 		add_filter('excerpt_more',    		array($cls, 'excerpt_more'));
