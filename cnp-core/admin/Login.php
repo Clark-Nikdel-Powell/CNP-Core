@@ -43,10 +43,10 @@ class CNP_Admin_Login {
 
 		?><style>
 			.login h1 a {
-				background-image: <?= "url('$image')"; ?>;
-				background-size: <?= "{$resize[0]}px {$resize[1]}px" ?>;
-				width: <?= $resize[0].'px' ?>;
-				height: <?= ($resize[1] + 4).'px'; ?>;
+				background-image: <?php echo "url('$image')"; ?>;
+				background-size: <?php echo "{$resize[0]}px {$resize[1]}px" ?>;
+				width: <?php echo $resize[0].'px' ?>;
+				height: <?php echo ($resize[1] + 4).'px'; ?>;
 			}
 		</style><?php
 	}

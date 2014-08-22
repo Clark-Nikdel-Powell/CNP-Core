@@ -10,7 +10,7 @@ class CNP_Admin_General {
 	public static function admin_footer_text() {
 		ob_start(); ?>
 			Created by <a href="http://clarknikdelpowell.com/">Clark Nikdel Powell</a>. Powered by <a href="http://wordpress.org">WordPress</a>.
-		<? return ob_get_clean();
+		<?php return ob_get_clean();
 	}
 
 	public static function hide_upgrade_notices() {
@@ -51,20 +51,20 @@ class CNP_Admin_General {
 		add_settings_field('street_address', 'Street Address', 'street_address_callback', 'general');
 
 		function company_name_callback() { ?>
-			<input class="regular-text" type="text" name="company_name" value="<?= get_option('company_name') ?>" />
-		<? } // end phone_number_callback
+			<input class="regular-text" type="text" name="company_name" value="<?php echo get_option('company_name') ?>" />
+		<?php } // end phone_number_callback
 
 		function phone_number_callback() { ?>
-			<input class="regular-text" type="text" name="phone_number" value="<?= get_option('phone_number') ?>" />
-		<? } // end phone_number_callback
+			<input class="regular-text" type="text" name="phone_number" value="<?php echo get_option('phone_number') ?>" />
+		<?php } // end phone_number_callback
 
 		function fax_number_callback() { ?>
-			<input class="regular-text" type="text" name="fax_number" value="<?= get_option('fax_number') ?>" />
-		<? } // end fax_number_callback
+			<input class="regular-text" type="text" name="fax_number" value="<?php echo get_option('fax_number') ?>" />
+		<?php } // end fax_number_callback
 
 		function street_address_callback() { ?>
-			<input class="regular-text" type="text" name="street_address" value="<?= get_option('street_address') ?>" />
-		<? } // end phone_number_callback
+			<input class="regular-text" type="text" name="street_address" value="<?php echo get_option('street_address') ?>" />
+		<?php } // end phone_number_callback
 	}
 
 	public static function initialize() {

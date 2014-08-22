@@ -28,35 +28,35 @@ class CNP_Right_Now_Widget extends CNP_Dashboard_Widget {
 				<h4>Content</h4>
 				<table>
 					<tbody>
-						<? foreach($post_types as $pt) { 
+						<?php foreach($post_types as $pt) { 
 							$counts = (array)wp_count_posts($pt->name, 'readable'); 
 							$edit_link = $pt->name == 'attachment' ? 'upload.php' : 'edit.php?post_type='.$pt->name;
 							$draft_link = $edit_link.'&post_status=draft';
 							$pending_link = $edit_link.'&post_status=pending';
 						?>
 							<tr>
-								<td><a href="<?= $edit_link; ?>"><?= array_sum($counts) - $counts["auto-draft"]; ?></a></td>
+								<td><a href="<?php echo $edit_link; ?>"><?php echo array_sum($counts) - $counts["auto-draft"]; ?></a></td>
 								<td>
-									<a href="<?= $edit_link; ?>"><?= $pt->labels->name;?></a>
-									<? if ($counts["draft"]) { ?> <a href="<?= $draft_link; ?>"><small><?= $counts["draft"]; ?> Drafts</small></a><? } ?>
-									<? if ($counts["pending"]) { ?> <a href="<?= $pending_link; ?>"><small><?= $counts["pending"]; ?> Pending</small></a><? } ?>
+									<a href="<?php echo $edit_link; ?>"><?php echo $pt->labels->name;?></a>
+									<?php if ($counts["draft"]) { ?> <a href="<?php echo $draft_link; ?>"><small><?php echo $counts["draft"]; ?> Drafts</small></a><?php } ?>
+									<?php if ($counts["pending"]) { ?> <a href="<?php echo $pending_link; ?>"><small><?php echo $counts["pending"]; ?> Pending</small></a><?php } ?>
 								</td>
 							</tr>
-						<? } ?>
+						<?php } ?>
 					</tbody>
 				</table>
 			</div>
 			<div class="right-now-block">
 				<h4>Details</h4>
 				<p id="right-now-details">
-					<b class="blog-name"><?= bloginfo('name'); ?></b> is running on 
-					<b class="wordpress-version">WordPress <?= $wp_version ?></b> with the 
-					<b class="theme-name"><?= wp_get_theme(); ?> Theme</b>. There are
-					<b class="active-plugins"><?= $active_plugins ?> Active Plugins</b> of the <?= $total_plugins; ?> plugins installed.
-					This site is currently <b class="blog-public"><?= $public ? '' : 'NOT'; ?> indexable</b> by search engines and archivers.
+					<b class="blog-name"><?php echo bloginfo('name'); ?></b> is running on 
+					<b class="wordpress-version">WordPress <?php echo $wp_version ?></b> with the 
+					<b class="theme-name"><?php echo wp_get_theme(); ?> Theme</b>. There are
+					<b class="active-plugins"><?php echo $active_plugins ?> Active Plugins</b> of the <?php echo $total_plugins; ?> plugins installed.
+					This site is currently <b class="blog-public"><?php echo $public ? '' : 'NOT'; ?> indexable</b> by search engines and archivers.
 				</p>
 			</div>
-		<? echo ob_get_clean();
+		<?php echo ob_get_clean();
 
 		die();
 	}
@@ -66,7 +66,7 @@ class CNP_Right_Now_Widget extends CNP_Dashboard_Widget {
 			<div id="cnp-right-now-container" style="display:none;"></div>
 			<p id="cnp-right-now-loading" class="empty">Loading...</p>
 			<script>jQuery(function($){$('#cnp-right-now').cnp_right_now();});</script>
-		<?
+		<?php
 	}
 
 	protected static function show_widget() {
