@@ -37,7 +37,7 @@ class CNP_Content_Freshness_Widget extends CNP_Dashboard_Widget {
 		$qry = static::getStale();
 
 		if (0 === $qry->post_count) {
-			?><p class="empty"><i>No stale content found.</i></p><?
+			?><p class="empty"><i>No stale content found.</i></p><?php
 		} else {
 			ob_start(); ?>
 				<table>
@@ -49,16 +49,16 @@ class CNP_Content_Freshness_Widget extends CNP_Dashboard_Widget {
 						</tr>
 					</thead>
 					<tbody>
-						<? while ($qry->have_posts()) { $qry->the_post(); ?>
+						<?php while ($qry->have_posts()) { $qry->the_post(); ?>
 							<tr>
-								<td><?= get_post_type(); ?></td>
-								<td><? edit_post_link(get_the_title()); ?></td>
-								<td><? the_modified_time('D, M j \a\t g:i a'); ?></td>
+								<td><?php echo get_post_type(); ?></td>
+								<td><?php edit_post_link(get_the_title()); ?></td>
+								<td><?php the_modified_time('D, M j \a\t g:i a'); ?></td>
 							</tr>
-						<? } ?>
+						<?php } ?>
 					</tbody>
 				</table>
-			<? echo ob_get_clean();
+			<?php echo ob_get_clean();
 			wp_reset_query();
 			wp_reset_postdata();
 		}
@@ -71,7 +71,7 @@ class CNP_Content_Freshness_Widget extends CNP_Dashboard_Widget {
 			<div id="cnp-content-freshness-container" style="display:none;"></div>
 			<p id="cnp-content-freshness-loading" class="empty">Loading...</p>
 			<script>jQuery(function($){$('#cnp-content-freshness-widget').cnp_freshness_widget();});</script>
-		<?
+		<?php
 	}
 
 	protected static function show_widget() {

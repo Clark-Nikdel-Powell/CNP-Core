@@ -276,6 +276,10 @@ function cnp_subnav($options=array()) {
 	if (is_tax()) {
 
 		$query_obj = get_queried_object();
+
+		if (isset($options['list_options'][$query_obj->taxonomy]))
+			$list_options = wp_parse_args($options['list_options'][$query_obj->taxonomy], $list_options);
+
 		$list_options['taxonomy'] = $query_obj->taxonomy;
 		$list = wp_list_categories($list_options);
 
@@ -303,7 +307,7 @@ function cnp_subnav($options=array()) {
 			// Non-hierarchical post types show specified taxonomy lists
 			else {
 
-				if (isset($options['list_options']))
+				if (isset($options['list_options'][$post->post_type]))
 					$list_options = wp_parse_args($options['list_options'][$post->post_type], $list_options);
 
 				$list = wp_list_categories($list_options);
@@ -590,19 +594,22 @@ function highest_ancestor($args=0) {
 // PAGINATION
 //-----------------------------------------------------------------------------
 
-function pagination($prev='&larr; Previous', $next='Next &rarr;') {
+function pagination($args) {
 
-	global $wp_query, $wp_rewrite;
+	global $wp_query;
 	$wp_query->query_vars['paged'] > 1 ? $current = $wp_query->query_vars['paged'] : $current = 1;
-	$pagination = array(
-		'base'      => @add_query_arg('paged','%#%'),
-		'format'    => '',
-		'total'     => $wp_query->max_num_pages,
-		'current'   => $current,
-		'prev_text' => __($prev),
-		'next_text' => __($next),
-		'type'      => 'plain'
+	$defaults = array(
+		'base'      => @add_query_arg('paged','%#%')
+	,	'format'    => ''
+	,	'total'     => $wp_query->max_num_pages
+	,	'current'   => $current
+	,	'end_size'  => 1
+	,	'mid_size'  => 2
+	,	'prev_text' => '&larr; Back'
+	,	'next_text' => 'More &rarr;'
+	,	'type'      => 'plain'
 	);
+	$pagination = wp_parse_args($args, $defaults);
 
 	$links = paginate_links($pagination);
 	echo $links

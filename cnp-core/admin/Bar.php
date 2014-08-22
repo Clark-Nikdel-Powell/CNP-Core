@@ -131,7 +131,7 @@ class CNP_Admin_Bar {
 		?>
 			<style type="text/css">
 				#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon {
-					background-image:url('<?= $logo_image; ?>') !important;
+					background-image:url('<?php echo $logo_image; ?>') !important;
 					background-position:0 0;
 				}
 				.mp6 #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon {
@@ -146,7 +146,7 @@ class CNP_Admin_Bar {
 					background-position:0 -21px;
 				}
 			</style>
-		<?
+		<?php
 	}
 
 	/**
