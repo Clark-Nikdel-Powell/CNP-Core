@@ -591,7 +591,7 @@ function highest_ancestor($args=0) {
 // PAGINATION
 //-----------------------------------------------------------------------------
 
-function pagination($args) {
+function pagination($args=0) {
 
 	global $wp_query;
 	$wp_query->query_vars['paged'] > 1 ? $current = $wp_query->query_vars['paged'] : $current = 1;
