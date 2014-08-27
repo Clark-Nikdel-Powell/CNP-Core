@@ -138,8 +138,11 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 	$menu = str_replace("\r", "", $menu);
 	$menu = str_replace("\n", "", $menu);
 
-	echo $menu.PHP_EOL;
-
+	if ( $vars['echo'] ) {
+		echo $menu.PHP_EOL;
+	} else {
+		return $menu;
+	}
 }
 
 /**

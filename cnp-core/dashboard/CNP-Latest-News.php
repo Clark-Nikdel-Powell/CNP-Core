@@ -28,7 +28,7 @@ class CNP_Latest_News_Widget extends CNP_Dashboard_Widget {
 		} elseif (count($news) === 0) {
 			?><p class="empty">There were no articles to retrieve...</p><?php
 		} else {
-			?><ul id="cnp-latest-news-list"><?
+			?><ul id="cnp-latest-news-list"><?php
 				foreach($news as $item) {
 					?>
 						<li>
@@ -36,11 +36,11 @@ class CNP_Latest_News_Widget extends CNP_Dashboard_Widget {
               	title="<?php printf( 'Posted %s by %s', $item->get_date('j F Y'), $item->get_author()->get_name()); ?>">
                 <h4><?php echo esc_html( $item->get_title() ); ?></h4>
               </a>
-              <p><? echo esc_html( strip_tags($item->get_description()) ); ?></p>
+              <p><?php echo esc_html( strip_tags($item->get_description()) ); ?></p>
 						</li>
-					<?
+					<?php
 				}
-			?></ul><?
+			?></ul><?php
 		}
 		die();
 	}
@@ -50,7 +50,7 @@ class CNP_Latest_News_Widget extends CNP_Dashboard_Widget {
 			<div id="cnp-latest-news-container" style="display:none;"></div>
 			<p id="cnp-latest-news-loading" class="empty">Loading...</p>
 			<script>jQuery(function($){$('#cnp-latest-news-widget').cnp_latest_news();});</script>
-		<?
+		<?php
 	}
 
 	protected static function show_widget() {
