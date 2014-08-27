@@ -469,7 +469,7 @@ class CNP_Meta_Box_Field_Factory {
 
 			//POST CHECKBOX GROUP
 			case 'post_checkbox_group':
-				$options  = '<div class="cnp-categorydiv"><ul class="category-tabs"><li class="tabs">'. $field['label'] .'</li></ul>';
+				$options  = '<div class="cnp-categorydiv"><ul class="category-tabs"><li class="tabs">Options</li></ul>';
 				$options .= '<div class="tabs-panel"><ul class="categorychecklist form-no-clear">';
 				$options .= implode('', array_map(
 					function($p) use ($field) {
@@ -480,7 +480,7 @@ class CNP_Meta_Box_Field_Factory {
 							$field['id'],
 							esc_attr($p->ID),
 							is_array($field['value']) && in_array($p->ID, $field['value']) ? 'checked="checked"' : '',
-							sprintf('%s: %s', $pt->labels->singular_name, $p->post_title)
+							(is_array($field['query']['post_type']) ? $pt->labels->singular_name.': ' : '').$p->post_title
 						);
 					},
 					get_posts($field['query'])
@@ -640,7 +640,7 @@ class CNP_Meta_Box_Field_Factory {
 					foreach ($field['value'] as $value) {
 						add_post_meta($post_id, $field['id'], $value);
 					}
-					
+
 				break;
 
 				default:
