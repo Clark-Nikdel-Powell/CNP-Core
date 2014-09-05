@@ -4,6 +4,8 @@ class CNP_Admin_General {
 
 	public static function add_favicon() {
 		$subdomain = cnp_get_subdomain();
+		$prefix = '';
+		$suffix = '';
 		if ( $subdomain == 'dev' ) {
 			$suffix = '-dev';
 		}
