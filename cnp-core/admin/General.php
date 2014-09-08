@@ -3,8 +3,17 @@
 class CNP_Admin_General {
 
 	public static function add_favicon() {
-		$favicon_url = get_stylesheet_directory_uri() . '/img/icons/admin-favicon.ico';
-		echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
+		$subdomain = cnp_get_subdomain();
+		$prefix = '';
+		$suffix = '';
+		if ( $subdomain == 'dev' ) {
+			$suffix = '-dev';
+		}
+		if ( is_admin() ) {
+			$prefix = 'admin-';
+		}
+		$favicon_url = get_stylesheet_directory_uri() . '/img/'. $prefix .'favicon'. $suffix .'.ico';
+		echo '<link rel="shortcut icon" href="'. $favicon_url .'" />';
 	}
 
 	public static function admin_footer_text() {
@@ -70,6 +79,7 @@ class CNP_Admin_General {
 	public static function initialize() {
 		add_action('login_head', array(__CLASS__, 'add_favicon'));
 		add_action('admin_head', array(__CLASS__, 'add_favicon'));
+		add_action('wp_head',    array(__CLASS__, 'add_favicon'));
 		add_filter('admin_footer_text', array(__CLASS__, 'admin_footer_text'), 999);
 		add_action('after_setup_theme', array(__CLASS__, 'hide_upgrade_notices'));
 		add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));

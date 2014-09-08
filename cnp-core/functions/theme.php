@@ -22,6 +22,13 @@ function cnp_theme_path($path) {
 	return $base.$path;
 }
 
+function cnp_get_subdomain() {
+	$http = $_SERVER['HTTP_HOST'];
+	$domain_array = explode(".", $http);
+	$subdomain = array_shift($domain_array);
+	return $subdomain;
+}
+
 //-----------------------------------------------------------------------------
 // STRINGS
 //-----------------------------------------------------------------------------
