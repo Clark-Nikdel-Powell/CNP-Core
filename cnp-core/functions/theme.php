@@ -177,7 +177,7 @@ function cnp_fa_nav_menu($menu_name, $args=array()) {
 
 		foreach ($items as $key => $item) {
 			$class = implode(' ', $item->classes);
-			if ( $ancestor['id'] == $item->object_id )
+			if ( isset($ancestor['id']) && $ancestor['id'] == $item->object_id )
 				$class .= ' current-menu-item';
 
 			$target = '';
