@@ -158,10 +158,10 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 
 /**
  * Build contextually aware section navigation
- * @param  string $menu_name Same as 'menu' in wp_nav_menu arguments. Allows simple retrieval of menu with just the one argument
- * @param  array  $args      Passed directly to wp_nav_menu
+ * @param  array  $options      Allows you to change the subnav header.
+ * @param  array  $list_args    Modify the wp_list_pages or wp_list_categories arguments.
  */
-function cnp_subnav($options=array()) {
+function cnp_subnav($options=array(), $list_args=array()) {
 
 	if (is_search() || is_404())
 		return false;
@@ -172,11 +172,14 @@ function cnp_subnav($options=array()) {
 
 	$vars = wp_parse_args( $options, $defaults );
 
-	$list_options = array(
+	$list_defaults = array(
 		'title_li'         => 0
 	,	'show_option_none' => 0
 	,   'echo'             => 0
+	,	'manual_additions' => ''
 	);
+
+	$list_options = wp_parse_args( $list_args, $list_defaults );
 
 	$before = '<nav class="section">'. $vars['header'] .'<ul>'.PHP_EOL;
 	$after = '</ul></nav>'.PHP_EOL;
@@ -226,6 +229,23 @@ function cnp_subnav($options=array()) {
 
 			}
 
+		}
+	}
+
+	// Add Manual pages at the bottom of the subnav
+	if ( !empty($list_options['manual_additions']) && $post->post_parent == 0 ) {
+
+		$args = array(
+			'include'   => $list_options['manual_additions']
+		,	'post_type' => 'page'
+		);
+		$additional_posts = get_posts( $args );
+
+		if (!empty($additional_posts))
+			$list .= '<li class="spacer"></li>';
+
+		foreach ($additional_posts as $key => $manual) {
+			$list .= '<li class="manual"><a href="'. get_permalink( $manual->ID ) .'">'. $manual->post_title .'</a></li>';
 		}
 	}
 
