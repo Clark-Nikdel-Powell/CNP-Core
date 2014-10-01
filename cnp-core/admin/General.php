@@ -6,14 +6,26 @@ class CNP_Admin_General {
 		$subdomain = cnp_get_subdomain();
 		$prefix = '';
 		$suffix = '';
+		$field_name = 'favicon_url';
+
 		if ( $subdomain == 'dev' ) {
 			$suffix = '-dev';
+			$field_name = 'dev_favicon_url';
 		}
 		if ( is_admin() ) {
 			$prefix = 'admin-';
+			$field_name = 'admin_favicon_url';
 		}
-		$favicon_url = get_stylesheet_directory_uri() . '/img/'. $prefix .'favicon'. $suffix .'.ico';
-		echo '<link rel="shortcut icon" href="'. $favicon_url .'" />';
+		if ( is_admin() && $subdomain == 'dev' ) {
+			$field_name = 'dev_admin_favicon_url';
+		}
+
+		$favicon_path = '/img/'. $prefix .'favicon'. $suffix .'.ico';
+
+		if ( function_exists('get_field') ) {
+			$favicon_path = get_field($field_name, 'option');
+		}
+		echo '<link rel="shortcut icon" href="'. get_stylesheet_directory_uri() . $favicon_path .'" />';
 	}
 
 	public static function admin_footer_text() {
@@ -48,34 +60,6 @@ class CNP_Admin_General {
 		));
 	}
 
-	public static function setup_additional_settings() {
-		register_setting( 'general', 'company_name' );
-		register_setting( 'general', 'phone_number' );
-		register_setting( 'general', 'fax_number' );
-		register_setting( 'general', 'street_address' );
-
-		add_settings_field('company_name', 'Company Name', 'company_name_callback', 'general');
-		add_settings_field('phone_number', 'Phone Number', 'phone_number_callback', 'general');
-		add_settings_field('fax_number', 'Fax Number', 'fax_number_callback', 'general');
-		add_settings_field('street_address', 'Street Address', 'street_address_callback', 'general');
-
-		function company_name_callback() { ?>
-			<input class="regular-text" type="text" name="company_name" value="<?php echo get_option('company_name') ?>" />
-		<?php } // end phone_number_callback
-
-		function phone_number_callback() { ?>
-			<input class="regular-text" type="text" name="phone_number" value="<?php echo get_option('phone_number') ?>" />
-		<?php } // end phone_number_callback
-
-		function fax_number_callback() { ?>
-			<input class="regular-text" type="text" name="fax_number" value="<?php echo get_option('fax_number') ?>" />
-		<?php } // end fax_number_callback
-
-		function street_address_callback() { ?>
-			<input class="regular-text" type="text" name="street_address" value="<?php echo get_option('street_address') ?>" />
-		<?php } // end phone_number_callback
-	}
-
 	public static function initialize() {
 		add_action('login_head', array(__CLASS__, 'add_favicon'));
 		add_action('admin_head', array(__CLASS__, 'add_favicon'));
@@ -83,6 +67,5 @@ class CNP_Admin_General {
 		add_filter('admin_footer_text', array(__CLASS__, 'admin_footer_text'), 999);
 		add_action('after_setup_theme', array(__CLASS__, 'hide_upgrade_notices'));
 		add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
-		add_action('admin_init', array(__CLASS__, 'setup_additional_settings'));
 	}
 }
