@@ -108,7 +108,7 @@ function cnp_getExt($file) {
  * @param  string $s String to manipulate. Duh.
  * @return string    Manipulated string
  */
-function lia2a($string) {
+function cnp_lia2a($string) {
 
 	if (!is_string($string))
 		return 'ERROR lia2a(): Not a string (CNP Core, functions/theme.php)';
@@ -135,17 +135,24 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 	,	'depth'           => 1
 	,	'fallback_cb'     => false
 	,	'items_wrap'      => PHP_EOL.'%3$s'
-	,	'echo'            => false
+	,	'echo'            => false // always false or else it'd echo on line 143.
+	,	'echo_menu'       => true  // sometimes true, sometimes not. it depends.
 	);
 	$vars = wp_parse_args($args, $defaults);
 
 	$menu = wp_nav_menu($vars);
-	$menu = lia2a($menu);
+	$menu = cnp_lia2a($menu);
 	$menu = trim($menu);
 	$menu = str_replace("\r", "", $menu);
 	$menu = str_replace("\n", "", $menu);
 
-	echo $menu.PHP_EOL;
+	if ( $vars['echo_menu'] === true ) {
+		echo $menu.PHP_EOL;
+	}
+
+	else {
+		return $menu;
+	}
 }
 
 /**
