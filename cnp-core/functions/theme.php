@@ -135,7 +135,8 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 	,	'depth'           => 1
 	,	'fallback_cb'     => false
 	,	'items_wrap'      => PHP_EOL.'%3$s'
-	,	'echo'            => false
+	,	'echo'            => false // always false or else it'd echo on line 143.
+	,	'echo_menu'       => true  // sometimes true, sometimes not. it depends.
 	);
 	$vars = wp_parse_args($args, $defaults);
 
@@ -145,9 +146,11 @@ function cnp_nav_menu($menu_name='', $args=array()) {
 	$menu = str_replace("\r", "", $menu);
 	$menu = str_replace("\n", "", $menu);
 
-	if ( $vars['echo'] ) {
+	if ( $vars['echo_menu'] === true ) {
 		echo $menu.PHP_EOL;
-	} else {
+	}
+
+	else {
 		return $menu;
 	}
 }
