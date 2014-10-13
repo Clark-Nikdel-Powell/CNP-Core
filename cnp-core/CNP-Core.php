@@ -58,13 +58,11 @@ require_once CNP_PATH.'post-types/CNP-Page.php';
 //META BOXES
 require_once CNP_PATH.'meta-boxes/CNP-Field-Factory.php';
 require_once CNP_PATH.'meta-boxes/CNP-Meta-Box.php';
-require_once CNP_PATH.'meta-boxes/CNP-Content-Freshness.php';
 
 //DASHBOARDD
 require_once CNP_PATH.'dashboard/General.php';
 require_once CNP_PATH.'dashboard/CNP-Dashboard-Widget.php';
 require_once CNP_PATH.'dashboard/CNP-Right-Now.php';
-require_once CNP_PATH.'dashboard/CNP-Content-Freshness.php';
 require_once CNP_PATH.'dashboard/CNP-Latest-News.php';
 
 //USERS
@@ -134,13 +132,9 @@ final class CNP_Core {
 		CNP_Post_Post_Type::initialize();
 		CNP_Page_Post_Type::initialize();
 
-		//META BOXES
-		CNP_Content_Freshness_Meta_Box::initialize();
-
 		//DASHBOARD
 		CNP_Dashboard_General::initialize();
 		CNP_Right_Now_Widget::initialize();
-		CNP_Content_Freshness_Widget::initialize();
 		CNP_Latest_News_Widget::initialize();
 
 		//USERS
