@@ -20,10 +20,14 @@ class CNP_Admin_General {
 			$field_name = 'dev_admin_favicon_url';
 		}
 
-		$favicon_path = '/img/'. $prefix .'favicon'. $suffix .'.ico';
+		$favicon_path = '/img/icons/'. $prefix .'favicon'. $suffix .'.ico';
 
 		if ( function_exists('get_field') ) {
-			$favicon_path = get_field($field_name, 'option');
+			$acf_favicon_path = get_field($field_name, 'option');
+
+			if ( !empty($acf_favicon_path) ) {
+				$favicon_path = $acf_favicon_path;
+			}
 		}
 		echo '<link rel="shortcut icon" href="'. get_stylesheet_directory_uri() . $favicon_path .'" />';
 	}
