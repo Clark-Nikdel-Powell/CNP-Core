@@ -549,3 +549,64 @@ function pagination($args=0) {
 		: '';
 
 }
+
+
+//-----------------------------------------------------------------------------
+// FEATURED IMAGE
+//--
+
+/**
+* 	Added to make getting the featured image easier
+*
+*	@param 	int 	$post_id 	The page/post to get the featured image for
+*	@since 	1.3.3
+*/
+function cnp_featured_image($post_id) {
+	$return = FALSE;
+	$id = get_post_thumbnail_id( $post_id );
+	if ( $id && $id !== '' ) {
+
+		$attachment = get_post( $id );
+		$meta = wp_get_attachment_metadata($id);
+
+		$sizes = array();
+
+		if ( is_array($meta) && count($meta) > 0 ) {
+			foreach( $meta['sizes'] as $key=>$size ) {
+				$sizes[$key] = array(
+					'file'		=> $size['file']
+				,	'url'		=> wp_get_attachment_image_src($id,$key)[0]
+				,	'width' 	=> $size['width']
+				,	'height' 	=> $size['height']
+				,	'mime-type' => $size['mime-type']
+				);
+			}
+		}
+
+		if ( is_object($attachment) && count($attachment) > 0 ) {
+
+			$return = array(
+				'ID' 			=> $id
+			,	'alt' 			=> get_post_meta($id,'_wp_attachment_image_alt',true)
+			,	'title' 		=> $attachment->post_title
+			,	'caption' 		=> $attachment->post_excerpt
+			,	'description' 	=> $attachment->post_content
+			,	'file'			=> $meta['file']
+			,	'url'			=> $attachment->guid
+			,	'width'			=> $meta['width']
+			,	'height'		=> $meta['height']
+			,	'sizes'			=> $sizes
+			,	'aperture'		=> $meta['image_meta']['aperture']
+			,	'credit' 		=> $meta['image_meta']['credit']
+			,	'camera'		=> $meta['image_meta']['camera']
+			,	'created'		=> $meta['image_meta']['created_timestamp']
+			,	'copyright'		=> $meta['image_meta']['copyright']
+			,	'focal_length'	=> $meta['image_meta']['focal_length']
+			,	'iso'			=> $meta['image_meta']['iso']
+			,	'shutter_speed'	=> $meta['image_meta']['shutter_speed']
+			,	'orientation'	=> $meta['image_meta']['orientation']
+			);
+		}
+	}
+	return $return;
+}
