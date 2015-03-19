@@ -544,10 +544,14 @@ function pagination($args=0) {
 	$pagination = wp_parse_args($args, $defaults);
 
 	$links = paginate_links($pagination);
-	echo $links
-		? '<p class="pagination">'.$links.'</p>'
-		: '';
-
+	if ( $pagination['type'] == 'array' ) {
+		return $links;
+	}
+	else {
+		echo $links
+			? '<p class="pagination">'.$links.'</p>'
+			: '';
+	}
 }
 
 
