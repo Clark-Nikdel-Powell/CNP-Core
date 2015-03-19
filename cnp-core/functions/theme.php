@@ -443,7 +443,7 @@ function highest_ancestor($args=0) {
 
 	elseif ( is_archive() || is_single() ) :
 
-		if ( $posttype && $posttype!='post' && $posttype!='page' ) :
+		if ( $posttype && $posttype != 'post' && $posttype != 'page' ) :
 			global $wp_query;
 			$archive = $wp_query->get_queried_object();
 			if (is_singular()) {$archive = get_post_type_object($archive->post_type);}
@@ -558,12 +558,17 @@ function pagination($args=0) {
 /**
 * 	Added to make getting the featured image easier
 *
-*	@param 	int 	$post_id 	The page/post to get the featured image for
+*	@param 	int 	$post_or_image_id 	The page/post to get the featured image for
 *	@since 	1.3.3
 */
-function cnp_featured_image($post_id) {
+function cnp_featured_image($post_or_image_id) {
 	$return = FALSE;
-	$id = get_post_thumbnail_id( $post_id );
+	if ( wp_attachment_is_image($post_or_image_id) ) {
+		$id = $post_or_image_id;
+	}
+	else {
+		$id = get_post_thumbnail_id( $post_or_image_id );
+	}
 	if ( $id && $id !== '' ) {
 
 		$attachment = get_post( $id );
@@ -582,6 +587,13 @@ function cnp_featured_image($post_id) {
 				);
 			}
 		}
+
+		$sizes['full'] = array(
+			'file'   => $meta['file']
+		,	'url'    => $attachment->guid
+		,	'width'  => $meta['width']
+		,	'height' => $meta['height']
+		);
 
 		if ( is_object($attachment) && count($attachment) > 0 ) {
 
