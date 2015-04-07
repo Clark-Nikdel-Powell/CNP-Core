@@ -337,101 +337,114 @@ function cnp_schema_meta($prop, $content) {
 // HIGHEST ANCESTOR
 //-----------------------------------------------------------------------------
 
-function cnp_highest_ancestor() {
+function get_highest_ancestor($args=0) {
 
-	$ancestor = array(
-		'id' => 0,
-		'name' => '',
-		'title' => 'Unknown',
-		'context' => null
+	$d = array(
+		'id'     => 0
+	,	'title'  => ''
+	,	'name'   => ''
+	,	'object' => false
 	);
-
-	if (is_home() || is_front_page())
-		$ancestor['title'] = 'Home';
-
-	if (is_404()) {
-		$ancestor['name'] = '404';
-		$ancestor['title'] = 'Page Not Found';
-	}
-
-	if (is_search()) {
-		$ancestor['slug'] = 'search';
-		$ancestor['title'] = 'Search Results';
-	}
-
-	if (is_year()) {
-
-	}
-
-	if (is_month()) {
-
-	}
-
-	if (is_day()) {
-
-	}
-
-	if (is_author()) {
-
-	}
-
-	if (is_post_type_archive()) {
-
-	}
-
-	if (is_tax() || is_category() || is_tag()) {
-
-	}
-
-	if (is_attachment()) {
-
-	}
-
-	if (is_singular()) {
-
-	}
-
-	return $ancestor;
-}
-
-function highest_ancestor($args=0) {
-
-	// merge passed arguments and defaults
-	$defaults = array(
-		'print'  => 0
-	,	'return' => 0
-	,	'stopat' => 0
-	);
-	$vars = wp_parse_args($args, $defaults);
 	$posttype = get_post_type();
 
-	if ( is_front_page() ) :
+	// Default homepage
+	if ( is_front_page() && is_home() ) {
 
 		$ancestor = array(
-			'id'   => (get_option("page_on_front") ? get_option("page_on_front") : 0)
-		,	'slug' => 'home'
-		,	'name' => 'Home'
+			'id'     => 0
+		,	'title'  => 'home'
+		,	'name'   => 'Home'
 		);
 
-	elseif ( is_home() || is_singular('post') ) :
+	// Static front page
+	} elseif ( is_front_page() ) {
 
-		$home = get_post(get_option("page_for_posts"));
+		$front_page = get_post(get_option('page_on_front'));
+		$ancestor = array(
+			'id'     => $front_page->ID
+		,	'title'  => $front_page->post_title
+		,	'name'   => $front_page->post_name
+		,	'object' => $front_page
+		);
 
-		if (!isset($home)) {
-			$ancestor = array(
-				'id'   => 0
-			,	'slug' => 'blog'
-			,	'name' => 'Blog'
-			);
-		} else {
-			$ancestor = array(
-				'id'   => $home->ID
-			,	'slug' => $home->post_name
-			,	'name' => $home->post_title
-			);
-		}
+	// Static posts page
+	} elseif ( is_home() ) {
 
-	elseif ( is_tax() ) :
+		$home = get_post(get_option('page_for_posts'));
+		$ancestor = array(
+			'id'     => $home->ID
+		,	'title'  => $home->post_title
+		,	'name'   => $home->post_name
+		,	'object' => $home
+		);
+
+	} elseif (is_search()) {
+
+		$ancestor = array(
+			'title' => 'Search Results' // Want to add number of search results
+		,	'name'  => 'search'
+		);
+
+	/*
+	} elseif (is_404()) {
+
+		$ancestor = array(
+			'title' => 'Page Not Found'
+		,	'name'  => 'error404'
+		);
+
+	} elseif (is_year()) {
+
+	} elseif (is_month()) {
+
+	} elseif (is_day()) {
+
+	} elseif (is_author()) {
+
+	} elseif (is_post_type_archive()) {
+
+	} elseif (is_tax() || is_category() || is_tag()) {
+
+	} elseif (is_attachment()) {
+
+	} elseif (is_singular()) {
+	*/
+
+	} elseif ( is_page() ) {
+
+		global $post;
+		$page = $post;
+
+		while ( $page->post_parent > 0 )
+			$page = get_post($page->post_parent);
+
+		$ancestor = array(
+			'id'     => $page->ID
+		,	'title'  => $page->post_title
+		,	'name'   => $page->post_name
+		,	'object' => $page
+		);
+
+	} elseif ( is_singular() ) {
+
+		$pt_obj = get_post_type_object($posttype);
+		$ancestor = array(
+			'id'     => 0
+		,	'title'  => $pt_obj->label
+		,	'name'   => $posttype
+		,	'object' => $pt_obj
+		);
+
+	} else {
+
+		$ancestor = array(
+			'title' => wp_title('', false)
+		);
+
+	}
+
+	/*
+	if ( is_tax() ) {
 
 		global $wp_query;
 		$tax = $wp_query->get_queried_object();
@@ -441,9 +454,10 @@ function highest_ancestor($args=0) {
 		,	'name' => $tax->name
 		);
 
-	elseif ( is_archive() || is_single() ) :
+	} elseif ( is_archive() || is_single() ) {
 
-		if ( $posttype && $posttype != 'post' && $posttype != 'page' ) :
+		if ( $posttype && $posttype!='post' && $posttype!='page' ) {
+
 			global $wp_query;
 			$archive = $wp_query->get_queried_object();
 			if (is_singular()) {$archive = get_post_type_object($archive->post_type);}
@@ -452,19 +466,28 @@ function highest_ancestor($args=0) {
 			,	'name'      => $archive->labels->name
 			,	'query_var' => $archive->query_var
 			);
-		else :
+
+		} else {
+
 			global $post;
-			if ($post) :
+
+			if ($post) {
+
 				$archive = get_the_category($post->ID);
 				$archive = $archive[0];
-			else :
+
+			} else {
+
 				global $wp_query;
 				$archive = $wp_query->get_queried_object();
-			endif;
 
-			while ($archive->parent != 0) :
+			}
+
+			while ($archive->parent != 0) {
+
 				$archive = get_category($archive->parent);
-			endwhile;
+
+			}
 
 			$ancestor = array(
 				'id'   => $archive->cat_ID
@@ -472,32 +495,10 @@ function highest_ancestor($args=0) {
 			,	'name' => $archive->name
 			,	'count' => $archive->count
 			);
-		endif;
 
-	elseif ( is_search() ) :
+		}
 
-		$ancestor = array(
-			'id'   => 0
-		,	'slug' => 'search'
-		,	'name' => 'Search Results'
-		);
-
-	elseif ( is_page() ) :
-
-		global $post;
-		$page = $post;
-
-		while ($page->post_parent > 0 && $page->post_parent != $vars['stopat']) :
-			$page = get_post($page->post_parent);
-		endwhile;
-
-		$ancestor = array(
-			'id'   => $page->ID
-		,	'slug' => $page->post_name
-		,	'name' => $page->post_title
-		);
-
-	elseif ($posttype && $posttype!='post' && $posttype!='page' ) :
+	} elseif ( $posttype && $posttype!='post' && $posttype!='page' ) {
 
 		$posttype = get_post_type_object($posttype);
 		$ancestor = array(
@@ -505,7 +506,7 @@ function highest_ancestor($args=0) {
 		,	'name' => $posttype->labels->name
 		);
 
-	else :
+	} else {
 
 		$ancestor = array(
 			'id'   => 0
@@ -513,12 +514,36 @@ function highest_ancestor($args=0) {
 		,	'name' => 'Page Not Found'
 		);
 
-	endif;
+	}
+	*/
 
-	if     ($vars['print'])  : print $ancestor[$vars['print']];
-	elseif ($vars['return']) : return $ancestor[$vars['return']];
-	else : return $ancestor;
-	endif;
+	$ancestor = wp_parse_args($ancestor, $d);
+	return $ancestor;
+
+}
+
+function highest_ancestor($echo=0) {
+
+	$ancestor = get_highest_ancestor();
+
+	if ($echo)
+		echo $ancestor[$echo];
+	else
+		echo $ancestor['title'];
+
+}
+
+function is_highest_ancestor() {
+
+	global $post;
+
+	if ( is_page() && $post->post_parent == 0)
+		return true;
+
+	if ( is_post_type_archive() )
+		return true;
+
+	return false;
 
 }
 
