@@ -2,36 +2,6 @@
 
 class CNP_Admin_General {
 
-	public static function add_favicon() {
-		$subdomain = cnp_get_subdomain();
-		$prefix = '';
-		$suffix = '';
-		$field_name = 'favicon_url';
-
-		if ( $subdomain == 'dev' ) {
-			$suffix = '-dev';
-			$field_name = 'dev_favicon_url';
-		}
-		if ( is_admin() ) {
-			$prefix = 'admin-';
-			$field_name = 'admin_favicon_url';
-		}
-		if ( is_admin() && $subdomain == 'dev' ) {
-			$field_name = 'dev_admin_favicon_url';
-		}
-
-		$favicon_path = '/img/icons/'. $prefix .'favicon'. $suffix .'.ico';
-
-		if ( function_exists('get_field') ) {
-			$acf_favicon_path = get_field($field_name, 'option');
-
-			if ( !empty($acf_favicon_path) ) {
-				$favicon_path = $acf_favicon_path;
-			}
-		}
-		echo '<link rel="shortcut icon" href="'. get_stylesheet_directory_uri() . $favicon_path .'" />';
-	}
-
 	public static function admin_footer_text() {
 		ob_start(); ?>
 			Created by <a href="http://clarknikdelpowell.com/">Clark Nikdel Powell</a>. Powered by <a href="http://wordpress.org">WordPress</a>.
