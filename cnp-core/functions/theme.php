@@ -271,24 +271,6 @@ function cnp_description() {
 	return apply_filters('cnp_description', '');
 }
 
-function cnp_excerpt($post, $max_words = false, $truncate = false) {
-
-	$max_words = $max_words ? $max_words : apply_filters('excerpt_length', 35);
-
-	$excerpt = $post->post_excerpt;
-	if (!$excerpt) $excerpt = strip_tags(strip_shortcodes($post->post_content));
-
-	if (!$truncate) return $excerpt;
-
-	$words = explode(' ', $excerpt);
-	if (count($words) > $max_words) {
-		array_splice($words, $max_words);
-		$excerpt = implode(' ', $words).apply_filters('excerpt_more', '&hellip');
-	}
-
-	return $excerpt;
-}
-
 //-----------------------------------------------------------------------------
 // SCHEMA.ORG HELPER FUNCTIONS
 //-----------------------------------------------------------------------------

@@ -46,8 +46,13 @@ final class CNP_Theme_General {
 	public static function description($description) {
 		$description = '';
 
-		if (is_singular() && !is_front_page() && !is_home())
-			$description = strip_tags(cnp_excerpt(get_queried_object(), 0, true));
+		if (is_singular() && !is_front_page() && !is_home()) {
+			$excerpt_args = array(
+				'max_words' => 0,
+				'truncate' => true
+			);
+			$description = strip_tags( cnp_excerpt( get_queried_object(), $excerpt_args ) );
+		}
 
 		if (strlen($description) == 0)
 			$description = get_bloginfo('description', 'display');
