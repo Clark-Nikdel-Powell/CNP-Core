@@ -58,33 +58,6 @@ function cnp_isvg($args) {
 }
 
 /**
- * Take a timestamp and turn it in to human timing.
- * @param  timestamp $time      To output, or not to output. Set to 0 if using URL-query.
- */
-function cnp_human_timing ($time, $cutoff=2) {
-
-	$current_time = current_time('timestamp');
-    $time = $current_time - $time; // to get the time since that moment
-
-    $tokens = array (
-        31536000 => 'year',
-        2592000 => 'month',
-        604800 => 'week',
-        86400 => 'day',
-        3600 => 'hour',
-        60 => 'minute',
-        1 => 'second'
-    );
-
-    foreach ($tokens as $unit => $text) {
-        if ($time < $unit) continue;
-        $numberOfUnits = floor($time / $unit);
-        return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
-    }
-
-}
-
-/**
  * Get a file's extension
  * @param 	string 	$file	the filename, as a string
  */
